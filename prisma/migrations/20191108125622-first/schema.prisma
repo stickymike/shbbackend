@@ -1,0 +1,85 @@
+
+datasource mysql {
+  provider = "mysql"
+  url      = "mysql://root:prisma@localhost:3306/prisma"
+  enabled = true
+}
+datasource postgresql {
+  provider  = "postgresql"
+  url       = "postgresql://postgres:secrect@localhost:5432/prisma"
+  enabled = false
+
+}
+
+generator photon {
+  provider  = "photonjs"
+  platforms = ["native"]
+}
+
+generator nexus_prisma {
+  provider = "nexus-prisma"
+}
+
+
+model User {
+  id          String            @default(cuid()) @id @unique
+  code        Int               @unique
+  email       String            @unique
+  password    String
+  firstName   String
+  lastName    String
+  title       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  timeCards   TimeCard[]
+  timeRoles   TimeRole[]
+  punchCards  PunchCard[]
+  // group: [UserGroup]
+  permissions Permissions[]
+
+}
+
+model TimeCard {
+  id          String      @default(cuid()) @id @unique
+  user        User
+  punchTime   DateTime
+  punchType   Punchtype
+  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime    @default(now())
+  timeRole    TimeRole
+}
+
+model PunchCard {
+  id          String      @default(cuid()) @id @unique
+  user        User
+  punchIn     DateTime
+  punchOut    DateTime
+  timeRole    TimeRole
+  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime    @default(now())
+}
+
+model TimeRole {
+  id          String        @default(cuid()) @id @unique
+  name        String
+  shortName   String
+  description String
+  payRate     Int
+  users       User[]
+  timeCards   TimeCard[]
+  punchCards  PunchCard[]
+  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime      @default(now())
+}
+
+enum Permissions {
+  ADMIN
+  USER
+  TIMECARDVIEWER
+  TIMECARDEDITOR
+}
+
+enum Punchtype {
+  CLOCKIN
+  CLOCKOUT
+}

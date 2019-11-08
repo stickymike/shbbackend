@@ -1,0 +1,40 @@
+{
+  "name": "shbbackend",
+  "scripts": {
+    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
+    "seed": "ts-node prisma/seed.ts",
+    "generate": "prisma2 generate && ts-node script.ts",
+    "update": "prisma2 lift save && prisma2 lift up --verbose",
+    "docstart": "docker-compose up",
+    "docbuild": "docker-compose build",
+    "docstop": "docker-compose down",
+    "docclean": "docker system prune -af",
+    "docclean:volumes": "docker volume prune -f",
+    "docseed": "docker exec -it backend npm run seed",
+    "doctest": "echo \"Error: no test specified\" && exit 1",
+    "docgenerate": "docker exec -it backend npm run postinstall",
+    "docmigrate": "docker exec -it backend npm run update"
+  },
+  "dependencies": {
+    "apollo-server-express": "2.9.3",
+    "bcrypt": "3.0.6",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "8.1.0",
+    "graphql": "0.13.2",
+    "graphql-yoga": "1.18.3",
+    "jsonwebtoken": "8.5.1",
+    "nexus": "0.12.0-beta.9"
+  },
+  "devDependencies": {
+    "@types/node": "10.14.17",
+    "@types/jsonwebtoken": "8.3.3",
+    "@types/bcrypt": "3.0.0",
+    "@types/cookie-parser": "1.4.2",
+    "@types/dotenv": "6.1.1",
+    "ts-node": "8.3.0",
+    "ts-node-dev": "1.0.0-pre.42",
+    "typescript": "3.6.2",
+    "prisma2": "2.0.0-preview-12",
+    "replace-in-file": "^4.1.3"
+  }
+}

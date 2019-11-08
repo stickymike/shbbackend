@@ -1,0 +1,40 @@
+import { objectType, booleanArg, stringArg } from "nexus";
+
+export const Query = objectType({
+  name: "Query",
+  definition(t) {
+    // t.list.field("users", {
+    //   type: "User",
+    //   resolve: (parent, args, ctx) => {
+    //     return ctx.photon.users.findMany({});
+    //   }
+    // });
+    t.field("me", {
+      type: "User",
+      nullable: true,
+      resolve: async (parent, args, { photon, request: { userId: id } }) => {
+        if (!id) return null;
+        const user = await photon.users
+          .findOne({
+            where: { id }
+          })
+          .catch(() => null);
+        return user;
+      }
+    });
+    t.list.field("test", {
+      type: "String",
+
+      resolve: (parent, args, ctx) => {
+        return ["this"];
+      }
+    });
+    t.crud.users({ filtering: true, ordering: true });
+    t.crud.timecards({ alias: "timeCards", filtering: true, ordering: true });
+    t.crud.timeroles({ alias: "timeRoles", filtering: true, ordering: true });
+    t.crud.punchcards({ alias: "punchCards", filtering: true, ordering: true });
+    t.crud.punchcard({ alias: "punchCard" });
+  }
+});
+
+export default Query;

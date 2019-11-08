@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  mysql:
+    container_name: mysqlnewer
+    ports:
+      - "3306:3306"
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: prisma
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - mysql:/var/lib/mysql
+  # mypostgres:
+  #   image: postgres
+  #   restart: always
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=secrect
+  #     - POSTGRES_USER=postgres
+  #   ports:
+  #     - "5432:5432"
+volumes: #define our mysql volume used above
+  mysql:
+  # db-data:

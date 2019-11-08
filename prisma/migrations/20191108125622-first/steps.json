@@ -1,0 +1,547 @@
+{
+  "version": "0.2.55",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "User",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "TimeCard",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PunchCard",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "TimeRole",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "code",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "email",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "password",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "firstName",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "lastName",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "timeCards",
+      "type": {
+        "Relation": {
+          "to": "TimeCard",
+          "to_fields": [],
+          "name": "TimeCardToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "timeRoles",
+      "type": {
+        "Relation": {
+          "to": "TimeRole",
+          "to_fields": [
+            "id"
+          ],
+          "name": "TimeRoleToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "punchCards",
+      "type": {
+        "Relation": {
+          "to": "PunchCard",
+          "to_fields": [],
+          "name": "PunchCardToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "permissions",
+      "type": {
+        "Enum": "Permissions"
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "TimeCardToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "punchTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "punchType",
+      "type": {
+        "Enum": "Punchtype"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeCard",
+      "name": "timeRole",
+      "type": {
+        "Relation": {
+          "to": "TimeRole",
+          "to_fields": [
+            "id"
+          ],
+          "name": "TimeCardToTimeRole",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PunchCardToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "punchIn",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "punchOut",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "timeRole",
+      "type": {
+        "Relation": {
+          "to": "TimeRole",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PunchCardToTimeRole",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PunchCard",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "shortName",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "payRate",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "users",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "TimeRoleToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "timeCards",
+      "type": {
+        "Relation": {
+          "to": "TimeCard",
+          "to_fields": [],
+          "name": "TimeCardToTimeRole",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "punchCards",
+      "type": {
+        "Relation": {
+          "to": "PunchCard",
+          "to_fields": [],
+          "name": "PunchCardToTimeRole",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRole",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "Permissions",
+      "values": [
+        "ADMIN",
+        "USER",
+        "TIMECARDVIEWER",
+        "TIMECARDEDITOR"
+      ]
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "Punchtype",
+      "values": [
+        "CLOCKIN",
+        "CLOCKOUT"
+      ]
+    }
+  ]
+}
