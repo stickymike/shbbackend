@@ -2,7 +2,7 @@ import { Photon } from "@generated/photon";
 import { GraphQLServer } from "graphql-yoga";
 import { schema } from "./schema/createSchema";
 
-const photon = new Photon({ debug: false });
+const photon = new Photon();
 
 const server = new GraphQLServer({
   schema,

@@ -16,13 +16,15 @@ server.express.use(cookieParser());
 
 server.express.use((req: myRequest, _res, next) => {
   const { token } = req.cookies;
+  let id: string = "";
   if (token) {
     jwt.verify(token, process.env.APP_SECRET, (_err: any, args: any) => {
       if (args && args.userId) {
-        req.userId = args.userId;
+        id = args.userId;
       }
     });
   }
+  req.userId = id;
   next();
 });
 

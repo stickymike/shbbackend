@@ -13,12 +13,12 @@ datasource postgresql {
 
 generator photon {
   provider  = "photonjs"
-  platforms = ["native"]
+  binaryTargets = ["native"]
 }
 
-generator nexus_prisma {
-  provider = "nexus-prisma"
-}
+// generator nexus_prisma {
+//   provider = "nexus-prisma"
+// }
 
 
 model User {
