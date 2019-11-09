@@ -2,23 +2,25 @@
 datasource mysql {
   provider = "mysql"
   url      = "mysql://root:prisma@localhost:3306/prisma"
-  enabled = true
+  enabled = false
 }
 datasource postgresql {
   provider  = "postgresql"
-  url       = "postgresql://postgres:secrect@localhost:5432/prisma"
-  enabled = false
+  url       = "postgresql://ccyleywleafutj:a89e2a184f59f70bb6a5ddef9f042f4cd95934195c4c31f3054e72ea216deb33@ec2-54-221-225-11.compute-1.amazonaws.com:5432/d4v0s437vieiac?ssl_accept=accept_invalid_certs;sslmode=prefer
+"
+
+  enabled = true
 
 }
 
 generator photon {
   provider  = "photonjs"
-  platforms = ["native"]
+  binaryTargets = ["native"]
 }
 
-generator nexus_prisma {
-  provider = "nexus-prisma"
-}
+// generator nexus_prisma {
+//   provider = "nexus-prisma"
+// }
 
 
 model User {
