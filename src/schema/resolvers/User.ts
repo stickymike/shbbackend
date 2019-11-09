@@ -10,7 +10,7 @@ export const User = objectType({
     t.model.title();
     t.model.createdAt();
     t.model.updatedAt();
-    t.model.timeCards({ pagination: true, ordering: true });
+    // t.model.timeCards({ pagination: true, ordering: true });
     t.model.timeRoles();
     t.model.code();
     t.string("recentTimeRoleId", {
@@ -40,9 +40,11 @@ export const User = objectType({
           orderBy: { punchOut: "desc" },
           first: 1
         });
+
         if (lastPunch.length === 0) return "";
         const { punchIn, punchOut, id: punchId } = lastPunch[0];
-        return punchIn === punchOut ? punchId : "";
+
+        return punchIn.toISOString() === punchOut.toISOString() ? punchId : "";
       }
     });
     // @ts-ignore

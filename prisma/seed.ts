@@ -49,14 +49,6 @@ async function main() {
     data: { timeRoles: { connect: { id: timerole2.id } } }
   });
 
-  const timecard1 = await photon.timeCards.create({
-    data: {
-      punchTime: new Date(),
-      punchType: "CLOCKIN",
-      user: { connect: { id: user1.id } },
-      timeRole: { connect: { id: timerole1.id } }
-    }
-  });
   // const timecard2 = await photon.timeCards.create({
   //   data: {
   //     punchTime: new Date(),
@@ -92,7 +84,7 @@ async function main() {
   //   },
   // })
 
-  console.log({ user1, user2, timerole1, timerole2, timecard1 });
+  console.log({ user1, user2, timerole1, timerole2 });
   // console.log({ timecard2 });
 }
 

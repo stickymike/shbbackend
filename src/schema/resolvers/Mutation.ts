@@ -170,9 +170,9 @@ export const Mutation = objectType({
     t.crud.updateOneUser({ alias: "updateUser" });
 
     //timecard CRUD
-    t.crud.deleteOneTimeCard({ alias: "deleteTimeCard" });
-    t.crud.createOneTimeCard({ alias: "createTimeCard" });
-    t.crud.updateOneTimeCard({ alias: "updateTimeCard" });
+    // t.crud.deleteOneTimeCard({ alias: "deleteTimeCard" });
+    // t.crud.createOneTimeCard({ alias: "createTimeCard" });
+    // t.crud.updateOneTimeCard({ alias: "updateTimeCard" });
 
     //punchcard CRUD
     t.crud.deleteOnePunchCard({ alias: "deletePunchCard" });

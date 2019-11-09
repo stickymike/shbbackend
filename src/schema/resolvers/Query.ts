@@ -30,7 +30,7 @@ export const Query = objectType({
       }
     });
     t.crud.users({ filtering: true, ordering: true });
-    t.crud.timeCards({ alias: "timeCards", filtering: true, ordering: true });
+    // t.crud.timeCards({ alias: "timeCards", filtering: true, ordering: true });
     t.crud.timeRoles({ alias: "timeRoles", filtering: true, ordering: true });
     t.crud.punchCards({ alias: "punchCards", filtering: true, ordering: true });
     t.crud.punchCard({ alias: "punchCard" });
