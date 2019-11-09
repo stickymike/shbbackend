@@ -2,35 +2,34 @@
 datasource mysql {
   provider = "mysql"
   url      = "mysql://root:prisma@localhost:3306/prisma"
-  enabled = false
+  enabled  = false
 }
+
 datasource postgresql {
-  provider  = "postgresql"
-  url       = "postgresql://ccyleywleafutj:a89e2a184f59f70bb6a5ddef9f042f4cd95934195c4c31f3054e72ea216deb33@ec2-54-221-225-11.compute-1.amazonaws.com:5432/d4v0s437vieiac?sslaccept=accept_invalid_certs"
-  enabled = true
+  provider = "postgresql"
+  url      = "postgresql://ccyleywleafutj:a89e2a184f59f70bb6a5ddef9f042f4cd95934195c4c31f3054e72ea216deb33@ec2-54-221-225-11.compute-1.amazonaws.com:5432/d4v0s437vieiac?sslaccept=accept_invalid_certs"
+  enabled  = true
 
 }
 
 generator photon {
-  provider  = "photonjs"
+  provider      = "photonjs"
   binaryTargets = ["native"]
 }
 
-// generator nexus_prisma {
-//   provider = "nexus-prisma"
-// }
+
 
 
 model User {
-  id          String            @default(cuid()) @id @unique
-  code        Int               @unique
-  email       String            @unique
+  id          String        @default(cuid()) @id @unique
+  code        Int           @unique
+  email       String        @unique
   password    String
   firstName   String
   lastName    String
   title       String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   timeCards   TimeCard[]
   timeRoles   TimeRole[]
   punchCards  PunchCard[]
@@ -40,27 +39,27 @@ model User {
 }
 
 model TimeCard {
-  id          String      @default(cuid()) @id @unique
-  user        User
-  punchTime   DateTime
-  punchType   Punchtype
-  updatedAt   DateTime    @updatedAt
-  createdAt   DateTime    @default(now())
-  timeRole    TimeRole
+  id        String    @default(cuid()) @id @unique
+  user      User
+  punchTime DateTime
+  punchType Punchtype
+  updatedAt DateTime  @updatedAt
+  createdAt DateTime  @default(now())
+  timeRole  TimeRole
 }
 
 model PunchCard {
-  id          String      @default(cuid()) @id @unique
-  user        User
-  punchIn     DateTime
-  punchOut    DateTime
-  timeRole    TimeRole
-  updatedAt   DateTime    @updatedAt
-  createdAt   DateTime    @default(now())
+  id        String   @default(cuid()) @id @unique
+  user      User
+  punchIn   DateTime
+  punchOut  DateTime
+  timeRole  TimeRole
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model TimeRole {
-  id          String        @default(cuid()) @id @unique
+  id          String      @default(cuid()) @id @unique
   name        String
   shortName   String
   description String
@@ -68,8 +67,8 @@ model TimeRole {
   users       User[]
   timeCards   TimeCard[]
   punchCards  PunchCard[]
-  updatedAt   DateTime      @updatedAt
-  createdAt   DateTime      @default(now())
+  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime    @default(now())
 }
 
 enum Permissions {
