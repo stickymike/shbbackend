@@ -68,12 +68,12 @@ export const Mutation = objectType({
           .catch((e: Error) => {
             throw new Error(e.message);
           });
-        const token = sign({ userId: user.id }, process.env.APP_SECRET);
+        // const token = sign({ userId: user.id }, process.env.APP_SECRET);
 
-        ctx.response.cookie("token", token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
-        });
+        // ctx.response.cookie("token", token, {
+        //   httpOnly: true,
+        //   maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+        // });
         return user;
       }
     });

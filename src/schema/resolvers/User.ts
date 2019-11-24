@@ -26,8 +26,10 @@ export const User = objectType({
             .findOne({
               where: { id }
             })
-            .timeRoles();
+            .timeRoles()
+            .catch(() => "");
           if (firstTimeRole.length === 0) return "";
+          //@ts-ignore
           return firstTimeRole[0].id;
         }
         return lastPunch[0].timeRole.id;
