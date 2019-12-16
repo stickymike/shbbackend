@@ -1,4 +1,4 @@
-import { Photon } from "@generated/photon";
+import { Photon } from "@prisma/photon";
 import { ApolloServer } from "apollo-server-express";
 import { schema } from "./schema/createSchema";
 

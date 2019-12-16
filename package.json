@@ -16,6 +16,7 @@
     "docmigrate": "docker exec -it backend npm run update"
   },
   "dependencies": {
+    "@prisma/photon": "^2.0.0-preview018.2",
     "apollo-server-express": "2.9.3",
     "bcrypt": "3.0.6",
     "cookie-parser": "^1.4.3",
@@ -35,7 +36,7 @@
     "ts-node": "8.3.0",
     "ts-node-dev": "1.0.0-pre.42",
     "typescript": "3.6.2",
-    "prisma2": "2.0.0-preview016.1",
+    "prisma2": "2.0.0-preview018.2",
     "replace-in-file": "^4.1.3"
   }
 }
