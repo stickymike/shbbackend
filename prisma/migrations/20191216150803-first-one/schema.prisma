@@ -1,13 +1,13 @@
 
 datasource mysql {
   provider = "mysql"
-  url      = "mysql://root:prisma@localhost:3306/prisma"
+  url = "***"
   enabled  = false
 }
 
 datasource postgresql {
   provider = "postgresql"
-  url      = "postgresql://ccyleywleafutj:a89e2a184f59f70bb6a5ddef9f042f4cd95934195c4c31f3054e72ea216deb33@ec2-54-221-225-11.compute-1.amazonaws.com:5432/d4v0s437vieiac?sslaccept=accept_invalid_certs"
+  url = "***"
   enabled  = true
 
 }
@@ -17,11 +17,8 @@ generator photon {
   binaryTargets = ["native"]
 }
 
-
-
-
 model User {
-  id          String        @default(cuid()) @id @unique
+  id          String        @default(cuid()) @id
   code        Int           @unique
   email       String        @unique
   password    String
@@ -39,7 +36,7 @@ model User {
 }
 
 model PunchCard {
-  id        String   @default(cuid()) @id @unique
+  id        String   @default(cuid()) @id
   user      User
   punchIn   DateTime
   punchOut  DateTime
@@ -49,7 +46,7 @@ model PunchCard {
 }
 
 model TimeRole {
-  id          String      @default(cuid()) @id @unique
+  id          String      @default(cuid()) @id
   name        String
   shortName   String
   description String
@@ -71,4 +68,14 @@ enum Permissions {
 enum Punchtype {
   CLOCKIN
   CLOCKOUT
+}
+
+model Event {
+  id           String   @default(cuid()) @id
+  name         String
+  startDateUTC DateTime
+  endDateUTC   DateTime
+  isRecurring  Boolean  @default(false)
+  duration     Float
+  recurPattern String
 }

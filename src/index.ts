@@ -1,4 +1,4 @@
-import * as cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 import * as jwt from "jsonwebtoken";
 import * as express from "express";
 import * as dotenv from "dotenv";

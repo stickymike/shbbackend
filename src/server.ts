@@ -1,4 +1,4 @@
-import { Photon } from "@generated/photon";
+import { Photon } from "@prisma/photon";
 import { GraphQLServer } from "graphql-yoga";
 import { schema } from "./schema/createSchema";
 

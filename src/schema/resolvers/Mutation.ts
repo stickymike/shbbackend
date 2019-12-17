@@ -147,6 +147,7 @@ export const Mutation = objectType({
       args: { id: idArg() },
       resolve: async (_p, { id }, { photon }) => {
         const users: User[] = await photon.timeRoles
+
           .findOne({ where: { id } })
           .users();
         let userList = "";
@@ -182,5 +183,10 @@ export const Mutation = objectType({
     //timerole CRUD
     t.crud.createOneTimeRole({ alias: "createTimeRole" });
     t.crud.updateOneTimeRole({ alias: "updateTimeRole" });
+
+    //Event CRUD
+    t.crud.createOneEvent({ alias: "createEvent" });
+    t.crud.updateOneEvent({ alias: "updateEvent" });
+    t.crud.deleteOneEvent({ alias: "deleteEvent" });
   }
 });

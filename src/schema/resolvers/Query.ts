@@ -34,6 +34,8 @@ export const Query = objectType({
     t.crud.timeRoles({ alias: "timeRoles", filtering: true, ordering: true });
     t.crud.punchCards({ alias: "punchCards", filtering: true, ordering: true });
     t.crud.punchCard({ alias: "punchCard" });
+    t.crud.event({ filtering: true, ordering: true });
+    t.crud.events({ filtering: true, ordering: true });
   }
 });
 
