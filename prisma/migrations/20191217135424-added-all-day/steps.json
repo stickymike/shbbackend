@@ -1,0 +1,32 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Event",
+      "field": "isAllDay",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Event",
+      "field": "isAllDay",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Event",
+      "field": "isAllDay",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "Event",
+      "field": "recurPattern",
+      "arity": "optional"
+    }
+  ]
+}

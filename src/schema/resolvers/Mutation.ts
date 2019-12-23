@@ -1,8 +1,10 @@
-import { objectType, idArg, stringArg, intArg } from "nexus";
+import { objectType, idArg, stringArg, intArg, booleanArg, arg } from "nexus";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { ApolloError } from "apollo-server-express";
 import { User } from "@generated/photon";
+import moment, { duration } from "moment";
+import { RRule, RRuleSet, rrulestr } from "rrule";
 
 export const Mutation = objectType({
   name: "Mutation",
@@ -163,6 +165,34 @@ export const Mutation = objectType({
           );
         }
         return photon.timeRoles.delete({ where: { id } });
+      }
+    });
+
+    t.field("createTimeRequest", {
+      type: "Event",
+      args: {
+        isAllDay: booleanArg({ nullable: false }),
+        startDateUTC: stringArg({ nullable: false }),
+        duration: intArg({ nullable: false }),
+        name: stringArg({ nullable: false }),
+        recurPattern: stringArg({ nullable: true })
+      },
+      resolve: async (_p, args, { photon }) => {
+        const newArgs = {
+          endDateUTC: moment(args.startDateUTC)
+            .add(args.startDateUTC, "minutes")
+            .toDate(),
+          isRecurring: !!args.recurPattern,
+          startDateUTC: moment(args.startDateUTC).toDate()
+        };
+
+        const recur = rrulestr(
+          `DTSTART:${args.startDateUTC}\nRRULE:${args.recurPattern}`
+        );
+        console.log(recur);
+
+        return null;
+        // return await photon.events.create({ data: { ...args, ...newArgs } });
       }
     });
 

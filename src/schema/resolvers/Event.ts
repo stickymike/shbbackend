@@ -10,5 +10,6 @@ export const Event = objectType({
     t.model.name();
     t.model.recurPattern();
     t.model.isRecurring();
+    t.model.isAllDay();
   }
 });

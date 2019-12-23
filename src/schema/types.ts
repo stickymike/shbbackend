@@ -1,4 +1,4 @@
-import { Photon } from "@generated/photon";
+import { Photon } from "@prisma/photon";
 import { myRequest } from "..";
 import { Response } from "express";
 import { ExecutionParams } from "subscriptions-transport-ws";

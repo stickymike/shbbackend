@@ -24,9 +24,10 @@ type Event {
   duration: Float!
   endDateUTC: DateTime!
   id: ID!
+  isAllDay: Boolean!
   isRecurring: Boolean!
   name: String!
-  recurPattern: String!
+  recurPattern: String
   startDateUTC: DateTime!
 }
 
@@ -34,9 +35,10 @@ input EventCreateInput {
   duration: Float!
   endDateUTC: DateTime!
   id: ID
+  isAllDay: Boolean
   isRecurring: Boolean
   name: String!
-  recurPattern: String!
+  recurPattern: String
   startDateUTC: DateTime!
 }
 
@@ -44,6 +46,7 @@ input EventOrderByInput {
   duration: OrderByArg
   endDateUTC: OrderByArg
   id: OrderByArg
+  isAllDay: OrderByArg
   isRecurring: OrderByArg
   name: OrderByArg
   recurPattern: OrderByArg
@@ -54,6 +57,7 @@ input EventUpdateInput {
   duration: Float
   endDateUTC: DateTime
   id: ID
+  isAllDay: Boolean
   isRecurring: Boolean
   name: String
   recurPattern: String
@@ -65,11 +69,12 @@ input EventWhereInput {
   duration: FloatFilter
   endDateUTC: DateTimeFilter
   id: StringFilter
+  isAllDay: BooleanFilter
   isRecurring: BooleanFilter
   name: StringFilter
   NOT: [EventWhereInput!]
   OR: [EventWhereInput!]
-  recurPattern: StringFilter
+  recurPattern: NullableStringFilter
   startDateUTC: DateTimeFilter
 }
 
@@ -103,6 +108,7 @@ type Mutation {
   clockcodetouser(code: Int): User!
   createEvent(data: EventCreateInput!): Event!
   createPunchCard(data: PunchCardCreateInput!): PunchCard!
+  createTimeRequest(duration: Int!, isAllDay: Boolean!, name: String!, recurPattern: String, startDateUTC: String!): Event!
   createTimeRole(data: TimeRoleCreateInput!): TimeRole!
   createUser(code: Int!, email: String!, firstName: String!, lastName: String!, password: String!, title: String): User!
   deleteEvent(where: EventWhereUniqueInput!): Event

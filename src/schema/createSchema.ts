@@ -17,18 +17,18 @@ export const schema = makeSchema({
       "../../node_modules/@types/nexus-typegen/index.d.ts"
     ),
     schema: join(__dirname, "../schema.graphql")
+  },
+  typegenAutoConfig: {
+    sources: [
+      {
+        source: "@prisma/photon",
+        alias: "photon"
+      },
+      {
+        source: join(__dirname, "types.ts"),
+        alias: "ctx"
+      }
+    ],
+    contextType: "ctx.Context"
   }
-  // typegenAutoConfig: {
-  //   sources: [
-  //     {
-  //       source: "@prisma/photon",
-  //       alias: "photon"
-  //     },
-  //     {
-  //       source: join(__dirname, "types.ts"),
-  //       alias: "ctx"
-  //     }
-  //   ],
-  //   contextType: "ctx.Context"
-  // }
 });
