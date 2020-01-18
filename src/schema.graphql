@@ -21,61 +21,150 @@ input DateTimeFilter {
 }
 
 type Event {
+  approved: Boolean!
+  description: String!
   duration: Float!
   endDateUTC: DateTime!
   id: ID!
   isAllDay: Boolean!
-  isRecurring: Boolean!
   name: String!
-  recurPattern: String
   startDateUTC: DateTime!
 }
 
 input EventCreateInput {
+  approved: Boolean
+  description: String!
   duration: Float!
   endDateUTC: DateTime!
   id: ID
   isAllDay: Boolean
-  isRecurring: Boolean
   name: String!
-  recurPattern: String
+  startDateUTC: DateTime!
+  user: UserCreateOneWithoutUserInput!
+}
+
+input EventCreateManyWithoutEventsInput {
+  connect: [EventWhereUniqueInput!]
+  create: [EventCreateWithoutUserInput!]
+}
+
+input EventCreateWithoutUserInput {
+  approved: Boolean
+  description: String!
+  duration: Float!
+  endDateUTC: DateTime!
+  id: ID
+  isAllDay: Boolean
+  name: String!
   startDateUTC: DateTime!
 }
 
+input EventFilter {
+  every: EventWhereInput
+  none: EventWhereInput
+  some: EventWhereInput
+}
+
 input EventOrderByInput {
+  approved: OrderByArg
+  description: OrderByArg
   duration: OrderByArg
   endDateUTC: OrderByArg
   id: OrderByArg
   isAllDay: OrderByArg
-  isRecurring: OrderByArg
   name: OrderByArg
-  recurPattern: OrderByArg
   startDateUTC: OrderByArg
 }
 
-input EventUpdateInput {
-  duration: Float
-  endDateUTC: DateTime
-  id: ID
-  isAllDay: Boolean
-  isRecurring: Boolean
-  name: String
-  recurPattern: String
-  startDateUTC: DateTime
-}
-
-input EventWhereInput {
-  AND: [EventWhereInput!]
+input EventScalarWhereInput {
+  AND: [EventScalarWhereInput!]
+  approved: BooleanFilter
+  description: StringFilter
   duration: FloatFilter
   endDateUTC: DateTimeFilter
   id: StringFilter
   isAllDay: BooleanFilter
-  isRecurring: BooleanFilter
+  name: StringFilter
+  NOT: [EventScalarWhereInput!]
+  OR: [EventScalarWhereInput!]
+  startDateUTC: DateTimeFilter
+}
+
+input EventUpdateInput {
+  approved: Boolean
+  description: String
+  duration: Float
+  endDateUTC: DateTime
+  id: ID
+  isAllDay: Boolean
+  name: String
+  startDateUTC: DateTime
+  user: UserUpdateOneRequiredWithoutEventsInput
+}
+
+input EventUpdateManyDataInput {
+  approved: Boolean
+  description: String
+  duration: Float
+  endDateUTC: DateTime
+  id: ID
+  isAllDay: Boolean
+  name: String
+  startDateUTC: DateTime
+}
+
+input EventUpdateManyWithoutUserInput {
+  connect: [EventWhereUniqueInput!]
+  create: [EventCreateWithoutUserInput!]
+  delete: [EventWhereUniqueInput!]
+  deleteMany: [EventScalarWhereInput!]
+  disconnect: [EventWhereUniqueInput!]
+  set: [EventWhereUniqueInput!]
+  update: [EventUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [EventUpdateManyWithWhereNestedInput!]
+  upsert: [EventUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input EventUpdateManyWithWhereNestedInput {
+  data: EventUpdateManyDataInput!
+  where: EventScalarWhereInput!
+}
+
+input EventUpdateWithoutUserDataInput {
+  approved: Boolean
+  description: String
+  duration: Float
+  endDateUTC: DateTime
+  id: ID
+  isAllDay: Boolean
+  name: String
+  startDateUTC: DateTime
+}
+
+input EventUpdateWithWhereUniqueWithoutUserInput {
+  data: EventUpdateWithoutUserDataInput!
+  where: EventWhereUniqueInput!
+}
+
+input EventUpsertWithWhereUniqueWithoutUserInput {
+  create: EventCreateWithoutUserInput!
+  update: EventUpdateWithoutUserDataInput!
+  where: EventWhereUniqueInput!
+}
+
+input EventWhereInput {
+  AND: [EventWhereInput!]
+  approved: BooleanFilter
+  description: StringFilter
+  duration: FloatFilter
+  endDateUTC: DateTimeFilter
+  id: StringFilter
+  isAllDay: BooleanFilter
   name: StringFilter
   NOT: [EventWhereInput!]
   OR: [EventWhereInput!]
-  recurPattern: NullableStringFilter
   startDateUTC: DateTimeFilter
+  user: UserWhereInput
 }
 
 input EventWhereUniqueInput {
@@ -565,10 +654,26 @@ input UserCreatepermissionsInput {
   set: [Permissions!]
 }
 
+input UserCreateWithoutEventsInput {
+  code: Int!
+  createdAt: DateTime
+  email: String!
+  firstName: String!
+  id: ID
+  lastName: String!
+  password: String!
+  permissions: UserCreatepermissionsInput
+  punchCards: PunchCardCreateManyWithoutPunchCardsInput
+  timeRoles: TimeRoleCreateManyWithoutTimeRolesInput
+  title: String
+  updatedAt: DateTime
+}
+
 input UserCreateWithoutPunchCardsInput {
   code: Int!
   createdAt: DateTime
   email: String!
+  events: EventCreateManyWithoutEventsInput
   firstName: String!
   id: ID
   lastName: String!
@@ -583,6 +688,7 @@ input UserCreateWithoutTimeRolesInput {
   code: Int!
   createdAt: DateTime
   email: String!
+  events: EventCreateManyWithoutEventsInput
   firstName: String!
   id: ID
   lastName: String!
@@ -616,6 +722,7 @@ input UserScalarWhereInput {
   code: IntFilter
   createdAt: DateTimeFilter
   email: StringFilter
+  events: EventFilter
   firstName: StringFilter
   id: StringFilter
   lastName: StringFilter
@@ -632,6 +739,7 @@ input UserUpdateInput {
   code: Int
   createdAt: DateTime
   email: String
+  events: EventUpdateManyWithoutUserInput
   firstName: String
   id: ID
   lastName: String
@@ -673,6 +781,13 @@ input UserUpdateManyWithWhereNestedInput {
   where: UserScalarWhereInput!
 }
 
+input UserUpdateOneRequiredWithoutEventsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutEventsInput
+  update: UserUpdateWithoutEventsDataInput
+  upsert: UserUpsertWithoutEventsInput
+}
+
 input UserUpdateOneRequiredWithoutPunchCardsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutPunchCardsInput
@@ -684,10 +799,26 @@ input UserUpdatepermissionsInput {
   set: [Permissions!]
 }
 
+input UserUpdateWithoutEventsDataInput {
+  code: Int
+  createdAt: DateTime
+  email: String
+  firstName: String
+  id: ID
+  lastName: String
+  password: String
+  permissions: UserUpdatepermissionsInput
+  punchCards: PunchCardUpdateManyWithoutUserInput
+  timeRoles: TimeRoleUpdateManyWithoutUsersInput
+  title: String
+  updatedAt: DateTime
+}
+
 input UserUpdateWithoutPunchCardsDataInput {
   code: Int
   createdAt: DateTime
   email: String
+  events: EventUpdateManyWithoutUserInput
   firstName: String
   id: ID
   lastName: String
@@ -702,6 +833,7 @@ input UserUpdateWithoutTimeRolesDataInput {
   code: Int
   createdAt: DateTime
   email: String
+  events: EventUpdateManyWithoutUserInput
   firstName: String
   id: ID
   lastName: String
@@ -715,6 +847,11 @@ input UserUpdateWithoutTimeRolesDataInput {
 input UserUpdateWithWhereUniqueWithoutTimeRolesInput {
   data: UserUpdateWithoutTimeRolesDataInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutEventsInput {
+  create: UserCreateWithoutEventsInput!
+  update: UserUpdateWithoutEventsDataInput!
 }
 
 input UserUpsertWithoutPunchCardsInput {
@@ -733,6 +870,7 @@ input UserWhereInput {
   code: IntFilter
   createdAt: DateTimeFilter
   email: StringFilter
+  events: EventFilter
   firstName: StringFilter
   id: StringFilter
   lastName: StringFilter

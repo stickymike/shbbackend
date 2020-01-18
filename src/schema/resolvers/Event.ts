@@ -8,8 +8,8 @@ export const Event = objectType({
     t.model.endDateUTC();
     t.model.startDateUTC();
     t.model.name();
-    t.model.recurPattern();
-    t.model.isRecurring();
+    t.model.approved();
+    t.model.description();
     t.model.isAllDay();
   }
 });

@@ -160,6 +160,13 @@
       "arity": "list"
     },
     {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "events",
+      "type": "Event",
+      "arity": "list"
+    },
+    {
       "stepType": "CreateModel",
       "model": "PunchCard"
     },
@@ -393,9 +400,44 @@
     {
       "stepType": "CreateField",
       "model": "Event",
+      "field": "user",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Event",
       "field": "name",
       "type": "String",
       "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Event",
+      "field": "description",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Event",
+      "field": "approved",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Event",
+      "field": "approved",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Event",
+      "field": "approved",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
     },
     {
       "stepType": "CreateField",
@@ -414,20 +456,20 @@
     {
       "stepType": "CreateField",
       "model": "Event",
-      "field": "isRecurring",
+      "field": "isAllDay",
       "type": "Boolean",
       "arity": "required"
     },
     {
       "stepType": "CreateDirective",
       "model": "Event",
-      "field": "isRecurring",
+      "field": "isAllDay",
       "directive": "default"
     },
     {
       "stepType": "CreateDirectiveArgument",
       "model": "Event",
-      "field": "isRecurring",
+      "field": "isAllDay",
       "directive": "default",
       "argument": "",
       "value": "false"
@@ -437,13 +479,6 @@
       "model": "Event",
       "field": "duration",
       "type": "Float",
-      "arity": "required"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Event",
-      "field": "recurPattern",
-      "type": "String",
       "arity": "required"
     }
   ]

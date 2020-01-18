@@ -32,7 +32,7 @@ model User {
   punchCards  PunchCard[]
   // group: [UserGroup]
   permissions Permissions[]
-
+  events      Event[]
 }
 
 model PunchCard {
@@ -72,11 +72,12 @@ enum Punchtype {
 
 model Event {
   id           String   @default(cuid()) @id
+  user         User
   name         String
+  description  String
+  approved     Boolean  @default(false)
   startDateUTC DateTime
   endDateUTC   DateTime
-  isRecurring  Boolean  @default(false)
   isAllDay     Boolean  @default(false)
   duration     Float
-  recurPattern String?
 }
