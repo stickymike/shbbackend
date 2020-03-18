@@ -1,4 +1,6 @@
 import { objectType, booleanArg, stringArg } from "nexus";
+import { TimeRequest } from "./TimeRequest";
+// import { User } from "./User";
 
 export const Query = objectType({
   name: "Query",
@@ -9,6 +11,10 @@ export const Query = objectType({
     //     return ctx.photon.users.findMany({});
     //   }
     // });
+    // t.field("oddTimeRequests",{
+    //   type:"TimeRequest",
+
+    // })
     t.field("me", {
       type: "User",
       nullable: true,
@@ -23,19 +29,25 @@ export const Query = objectType({
       }
     });
     t.list.field("test", {
-      type: "String",
-
-      resolve: (parent, args, ctx) => {
-        return ["this"];
+      type: "User",
+      args: { where: "UserWhereInput" },
+      resolve: (parent, { where }, { photon }) => {
+        return photon.users.findMany().catch((): any => null);
       }
     });
+
     t.crud.users({ filtering: true, ordering: true });
     // t.crud.timeCards({ alias: "timeCards", filtering: true, ordering: true });
     t.crud.timeRoles({ alias: "timeRoles", filtering: true, ordering: true });
     t.crud.punchCards({ alias: "punchCards", filtering: true, ordering: true });
     t.crud.punchCard({ alias: "punchCard" });
-    t.crud.event();
-    t.crud.events({ filtering: true, ordering: true });
+
+    t.crud.timeRequest();
+    t.crud.timeRequests({ filtering: true, ordering: true });
+    t.crud.taskGroups({ filtering: true, ordering: true });
+    t.crud.taskGroup();
+    t.crud.tasks({ filtering: true, ordering: true });
+    t.crud.tasks();
   }
 });
 

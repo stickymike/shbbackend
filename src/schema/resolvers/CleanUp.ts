@@ -4,7 +4,9 @@ import { User } from "./User";
 // import { TimeCard } from "./TimeCard";
 import { TimeRole } from "./TimeRole";
 import { PunchCard } from "./PunchCard";
-import { Event } from "./Event";
+import { TimeRequest } from "./TimeRequest";
+import { Task } from "./Task";
+import { TaskGroup } from "./TaskGroup";
 
 // import { Punchtype, Permissions } from "./Enums";
 
@@ -13,6 +15,8 @@ export const resolvers = {
   Mutation,
   User,
   TimeRole,
-  Event,
-  PunchCard
+  TimeRequest,
+  PunchCard,
+  Task,
+  TaskGroup
 };

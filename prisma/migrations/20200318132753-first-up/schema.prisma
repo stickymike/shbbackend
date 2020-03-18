@@ -32,7 +32,7 @@ model User {
   punchCards  PunchCard[]
   // group: [UserGroup]
   permissions Permissions[]
-  events      Event[]
+  events      TimeRequest[]
 }
 
 model PunchCard {
@@ -59,25 +59,38 @@ model TimeRole {
 }
 
 enum Permissions {
-  ADMIN
-  USER
-  TIMECARDVIEWER
-  TIMECARDEDITOR
+  ADMIN USER TIMECARDVIEWER TIMECARDEDITOR
 }
 
 enum Punchtype {
-  CLOCKIN
-  CLOCKOUT
+  CLOCKIN CLOCKOUT
 }
 
-model Event {
-  id           String   @default(cuid()) @id
-  user         User
-  name         String
-  description  String
-  approved     Boolean  @default(false)
-  startDateUTC DateTime
-  endDateUTC   DateTime
-  isAllDay     Boolean  @default(false)
-  duration     Float
+model TimeRequest {
+  id        String   @default(cuid()) @id
+  user      User
+  reason    String
+  approved  Boolean?
+  startTime DateTime
+  endTime   DateTime
+  isAllDay  Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model TaskGroup {
+  id        String   @default(cuid()) @id
+  name      String
+  tasks     Task[]
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id            String   @default(cuid()) @id
+  name          String
+  parentTask    Task     @relation(name: "newTaskCheck")
+  childrenTasks Task[]   @relation(name: "newTaskCheck")
+  updatedAt     DateTime @updatedAt
+  createdAt     DateTime @default(now())
 }

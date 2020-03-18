@@ -163,7 +163,7 @@
       "stepType": "CreateField",
       "model": "User",
       "field": "events",
-      "type": "Event",
+      "type": "TimeRequest",
       "arity": "list"
     },
     {
@@ -368,24 +368,24 @@
     },
     {
       "stepType": "CreateModel",
-      "model": "Event"
+      "model": "TimeRequest"
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
+      "model": "TimeRequest",
       "field": "id",
       "type": "String",
       "arity": "required"
     },
     {
       "stepType": "CreateDirective",
-      "model": "Event",
+      "model": "TimeRequest",
       "field": "id",
       "directive": "default"
     },
     {
       "stepType": "CreateDirectiveArgument",
-      "model": "Event",
+      "model": "TimeRequest",
       "field": "id",
       "directive": "default",
       "argument": "",
@@ -393,93 +393,292 @@
     },
     {
       "stepType": "CreateDirective",
-      "model": "Event",
+      "model": "TimeRequest",
       "field": "id",
       "directive": "id"
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
+      "model": "TimeRequest",
       "field": "user",
       "type": "User",
       "arity": "required"
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
+      "model": "TimeRequest",
+      "field": "reason",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "approved",
+      "type": "Boolean",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "startTime",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "endTime",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "isAllDay",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TimeRequest",
+      "field": "isAllDay",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "TimeRequest",
+      "field": "isAllDay",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TimeRequest",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TimeRequest",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TimeRequest",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "TimeRequest",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "TaskGroup"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TaskGroup",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TaskGroup",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "TaskGroup",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TaskGroup",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TaskGroup",
       "field": "name",
       "type": "String",
       "arity": "required"
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
-      "field": "description",
+      "model": "TaskGroup",
+      "field": "tasks",
+      "type": "Task",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TaskGroup",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TaskGroup",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TaskGroup",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "TaskGroup",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "TaskGroup",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Task"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Task",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Task",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Task",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Task",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Task",
+      "field": "name",
       "type": "String",
       "arity": "required"
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
-      "field": "approved",
-      "type": "Boolean",
+      "model": "Task",
+      "field": "parentTask",
+      "type": "Task",
       "arity": "required"
     },
     {
       "stepType": "CreateDirective",
-      "model": "Event",
-      "field": "approved",
-      "directive": "default"
+      "model": "Task",
+      "field": "parentTask",
+      "directive": "relation"
     },
     {
       "stepType": "CreateDirectiveArgument",
-      "model": "Event",
-      "field": "approved",
-      "directive": "default",
-      "argument": "",
-      "value": "false"
+      "model": "Task",
+      "field": "parentTask",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"newTaskCheck\""
     },
     {
       "stepType": "CreateField",
-      "model": "Event",
-      "field": "startDateUTC",
+      "model": "Task",
+      "field": "childrenTasks",
+      "type": "Task",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Task",
+      "field": "childrenTasks",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Task",
+      "field": "childrenTasks",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"newTaskCheck\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Task",
+      "field": "updatedAt",
       "type": "DateTime",
-      "arity": "required"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Event",
-      "field": "endDateUTC",
-      "type": "DateTime",
-      "arity": "required"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Event",
-      "field": "isAllDay",
-      "type": "Boolean",
       "arity": "required"
     },
     {
       "stepType": "CreateDirective",
-      "model": "Event",
-      "field": "isAllDay",
+      "model": "Task",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Task",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Task",
+      "field": "createdAt",
       "directive": "default"
     },
     {
       "stepType": "CreateDirectiveArgument",
-      "model": "Event",
-      "field": "isAllDay",
+      "model": "Task",
+      "field": "createdAt",
       "directive": "default",
       "argument": "",
-      "value": "false"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Event",
-      "field": "duration",
-      "type": "Float",
-      "arity": "required"
+      "value": "now()"
     }
   ]
 }

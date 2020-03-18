@@ -168,33 +168,33 @@ export const Mutation = objectType({
       }
     });
 
-    t.field("createTimeRequest", {
-      type: "Event",
-      args: {
-        isAllDay: booleanArg({ nullable: false }),
-        startDateUTC: stringArg({ nullable: false }),
-        duration: intArg({ nullable: false }),
-        name: stringArg({ nullable: false }),
-        recurPattern: stringArg({ nullable: true })
-      },
-      resolve: async (_p, args, { photon }) => {
-        const newArgs = {
-          endDateUTC: moment(args.startDateUTC)
-            .add(args.startDateUTC, "minutes")
-            .toDate(),
-          isRecurring: !!args.recurPattern,
-          startDateUTC: moment(args.startDateUTC).toDate()
-        };
+    // t.field("createTimeRequest", {
+    //   type: "Event",
+    //   args: {
+    //     isAllDay: booleanArg({ nullable: false }),
+    //     startDateUTC: stringArg({ nullable: false }),
+    //     duration: intArg({ nullable: false }),
+    //     name: stringArg({ nullable: false }),
+    //     recurPattern: stringArg({ nullable: true })
+    //   },
+    //   resolve: async (_p, args, { photon }) => {
+    //     const newArgs = {
+    //       endDateUTC: moment(args.startDateUTC)
+    //         .add(args.startDateUTC, "minutes")
+    //         .toDate(),
+    //       isRecurring: !!args.recurPattern,
+    //       startDateUTC: moment(args.startDateUTC).toDate()
+    //     };
 
-        const recur = rrulestr(
-          `DTSTART:${args.startDateUTC}\nRRULE:${args.recurPattern}`
-        );
-        console.log(recur);
+    //     const recur = rrulestr(
+    //       `DTSTART:${args.startDateUTC}\nRRULE:${args.recurPattern}`
+    //     );
+    //     console.log(recur);
 
-        return null;
-        // return await photon.events.create({ data: { ...args, ...newArgs } });
-      }
-    });
+    //     return null;
+    //     // return await photon.events.create({ data: { ...args, ...newArgs } });
+    //   }
+    // });
 
     //user CRUD
     t.crud.deleteOneUser({ alias: "deleteUser" });
@@ -215,8 +215,18 @@ export const Mutation = objectType({
     t.crud.updateOneTimeRole({ alias: "updateTimeRole" });
 
     //Event CRUD
-    t.crud.createOneEvent({ alias: "createEvent" });
-    t.crud.updateOneEvent({ alias: "updateEvent" });
-    t.crud.deleteOneEvent({ alias: "deleteEvent" });
+    t.crud.createOneTimeRequest({ alias: "createTimeRequest" });
+    t.crud.updateOneTimeRequest({ alias: "updateTimeRequest" });
+    t.crud.deleteOneTimeRequest({ alias: "deleteTimeRequest" });
+
+    //TaskGroup
+    t.crud.createOneTaskGroup();
+    t.crud.updateOneTaskGroup();
+    t.crud.deleteOneTaskGroup();
+
+    //Task CRUD
+    t.crud.createOneTask();
+    t.crud.updateOneTask();
+    t.crud.deleteOneTask();
   }
 });
