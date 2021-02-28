@@ -14,15 +14,15 @@ export const User = objectType({
     t.model.timeRoles();
     t.model.code();
     t.string("recentTimeRoleId", {
-      resolve: async ({ id }, _args, { photon }) => {
-        const lastPunch = await photon.punchCards.findMany({
+      resolve: async ({ id }, _args, { prisma: photon }) => {
+        const lastPunch = await photon.punchCard.findMany({
           where: { user: { id } },
           orderBy: { punchOut: "desc" },
           first: 1,
           include: { timeRole: true }
         });
         if (lastPunch.length === 0) {
-          const firstTimeRole = await photon.users
+          const firstTimeRole = await photon.user
             .findOne({
               where: { id }
             })
@@ -36,8 +36,8 @@ export const User = objectType({
       }
     });
     t.string("clockedIn", {
-      resolve: async ({ id }, _args, { photon }) => {
-        const lastPunch = await photon.punchCards.findMany({
+      resolve: async ({ id }, _args, { prisma: photon }) => {
+        const lastPunch = await photon.punchCard.findMany({
           where: { user: { id } },
           orderBy: { punchOut: "desc" },
           first: 1
@@ -49,7 +49,6 @@ export const User = objectType({
         return punchIn.toISOString() === punchOut.toISOString() ? punchId : "";
       }
     });
-    // @ts-ignore
     t.model.permissions();
   }
 });

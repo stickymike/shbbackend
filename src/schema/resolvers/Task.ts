@@ -8,5 +8,8 @@ export const Task = objectType({
     t.model.updatedAt();
     t.model.createdAt();
     t.model.childrenTasks();
+    t.model.orderRank();
+    t.model.parentTask();
+    t.model.taskList();
   }
 });

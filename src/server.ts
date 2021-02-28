@@ -1,14 +1,13 @@
-import { Photon } from "@prisma/photon";
+import { PrismaClient } from "@prisma/client";
 import { GraphQLServer } from "graphql-yoga";
 import { schema } from "./schema/createSchema";
 
-const photon = new Photon();
-
+const prisma = new PrismaClient();
 const server = new GraphQLServer({
   schema,
   context(ctx) {
     return {
-      photon,
+      prisma,
       ...ctx
     };
   }

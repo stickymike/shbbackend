@@ -6,7 +6,7 @@ import { TimeRole } from "./TimeRole";
 import { PunchCard } from "./PunchCard";
 import { TimeRequest } from "./TimeRequest";
 import { Task } from "./Task";
-import { TaskGroup } from "./TaskGroup";
+import { TaskList } from "./TaskList";
 
 // import { Punchtype, Permissions } from "./Enums";
 
@@ -18,5 +18,5 @@ export const resolvers = {
   TimeRequest,
   PunchCard,
   Task,
-  TaskGroup
+  TaskList
 };

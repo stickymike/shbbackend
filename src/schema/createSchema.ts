@@ -21,8 +21,8 @@ export const schema = makeSchema({
   typegenAutoConfig: {
     sources: [
       {
-        source: "@prisma/photon",
-        alias: "photon"
+        source: "@prisma/client",
+        alias: "prisma"
       },
       {
         source: join(__dirname, "types.ts"),

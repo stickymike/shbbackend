@@ -1,4 +1,4 @@
-import { Photon } from "@prisma/photon";
+import { PrismaClient } from "@prisma/client";
 import { myRequest } from "..";
 import { Response } from "express";
 import { ExecutionParams } from "subscriptions-transport-ws";
@@ -12,5 +12,5 @@ export interface myContextParameters {
 }
 
 export interface Context extends myContextParameters {
-  photon: Photon;
+  prisma: PrismaClient;
 }

@@ -20,6 +20,17 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
+input FloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
 input IntFilter {
   equals: Int
   gt: Int
@@ -34,13 +45,13 @@ input IntFilter {
 type Mutation {
   clockcodetouser(code: Int): User!
   createOneTask(data: TaskCreateInput!): Task!
-  createOneTaskGroup(data: TaskGroupCreateInput!): TaskGroup!
+  createOneTaskList(data: TaskListCreateInput!): TaskList!
   createPunchCard(data: PunchCardCreateInput!): PunchCard!
   createTimeRequest(data: TimeRequestCreateInput!): TimeRequest!
   createTimeRole(data: TimeRoleCreateInput!): TimeRole!
   createUser(code: Int!, email: String!, firstName: String!, lastName: String!, password: String!, title: String): User!
   deleteOneTask(where: TaskWhereUniqueInput!): Task
-  deleteOneTaskGroup(where: TaskGroupWhereUniqueInput!): TaskGroup
+  deleteOneTaskList(where: TaskListWhereUniqueInput!): TaskList
   deletePunchCard(where: PunchCardWhereUniqueInput!): PunchCard
   deleteTimeRequest(where: TimeRequestWhereUniqueInput!): TimeRequest
   deleteTimeRole(id: ID): TimeRole!
@@ -49,7 +60,7 @@ type Mutation {
   signin(email: String, password: String): User!
   signout: String!
   updateOneTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task
-  updateOneTaskGroup(data: TaskGroupUpdateInput!, where: TaskGroupWhereUniqueInput!): TaskGroup
+  updateOneTaskList(data: TaskListUpdateInput!, where: TaskListWhereUniqueInput!): TaskList
   updatePunchCard(data: PunchCardUpdateInput!, where: PunchCardWhereUniqueInput!): PunchCard
   updateTimeRequest(data: TimeRequestUpdateInput!, where: TimeRequestWhereUniqueInput!): TimeRequest
   updateTimeRole(data: TimeRoleUpdateInput!, where: TimeRoleWhereUniqueInput!): TimeRole
@@ -80,7 +91,7 @@ enum OrderByArg {
   desc
 }
 
-enum Permissions {
+enum Permission {
   ADMIN
   TIMECARDEDITOR
   TIMECARDVIEWER
@@ -89,7 +100,7 @@ enum Permissions {
 
 type PunchCard {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   punchIn: DateTime!
   punchOut: DateTime!
   timeRole: TimeRole!
@@ -99,34 +110,39 @@ type PunchCard {
 
 input PunchCardCreateInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime!
   punchOut: DateTime!
-  timeRole: TimeRoleCreateOneWithoutTimeRoleInput!
+  timeRole: TimeRoleCreateOneWithoutPunchCardsInput!
   updatedAt: DateTime
-  user: UserCreateOneWithoutUserInput!
+  user: UserCreateOneWithoutPunchCardsInput!
 }
 
-input PunchCardCreateManyWithoutPunchCardsInput {
+input PunchCardCreateManyWithoutTimeRoleInput {
   connect: [PunchCardWhereUniqueInput!]
   create: [PunchCardCreateWithoutTimeRoleInput!]
 }
 
+input PunchCardCreateManyWithoutUserInput {
+  connect: [PunchCardWhereUniqueInput!]
+  create: [PunchCardCreateWithoutUserInput!]
+}
+
 input PunchCardCreateWithoutTimeRoleInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime!
   punchOut: DateTime!
   updatedAt: DateTime
-  user: UserCreateOneWithoutUserInput!
+  user: UserCreateOneWithoutPunchCardsInput!
 }
 
 input PunchCardCreateWithoutUserInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime!
   punchOut: DateTime!
-  timeRole: TimeRoleCreateOneWithoutTimeRoleInput!
+  timeRole: TimeRoleCreateOneWithoutPunchCardsInput!
   updatedAt: DateTime
 }
 
@@ -141,7 +157,9 @@ input PunchCardOrderByInput {
   id: OrderByArg
   punchIn: OrderByArg
   punchOut: OrderByArg
+  timeRole: OrderByArg
   updatedAt: OrderByArg
+  user: OrderByArg
 }
 
 input PunchCardScalarWhereInput {
@@ -157,7 +175,7 @@ input PunchCardScalarWhereInput {
 
 input PunchCardUpdateInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime
   punchOut: DateTime
   timeRole: TimeRoleUpdateOneRequiredWithoutPunchCardsInput
@@ -167,7 +185,7 @@ input PunchCardUpdateInput {
 
 input PunchCardUpdateManyDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime
   punchOut: DateTime
   updatedAt: DateTime
@@ -204,7 +222,7 @@ input PunchCardUpdateManyWithWhereNestedInput {
 
 input PunchCardUpdateWithoutTimeRoleDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime
   punchOut: DateTime
   updatedAt: DateTime
@@ -213,7 +231,7 @@ input PunchCardUpdateWithoutTimeRoleDataInput {
 
 input PunchCardUpdateWithoutUserDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   punchIn: DateTime
   punchOut: DateTime
   timeRole: TimeRoleUpdateOneRequiredWithoutPunchCardsInput
@@ -256,21 +274,22 @@ input PunchCardWhereInput {
 }
 
 input PunchCardWhereUniqueInput {
-  id: ID
+  id: String
 }
 
 type Query {
   me: User
   punchCard(where: PunchCardWhereUniqueInput!): PunchCard
-  punchCards(after: ID, before: ID, first: Int, last: Int, orderBy: PunchCardOrderByInput, skip: Int, where: PunchCardWhereInput): [PunchCard!]!
-  taskGroup(where: TaskGroupWhereUniqueInput!): TaskGroup
-  taskGroups(after: ID, before: ID, first: Int, last: Int, orderBy: TaskGroupOrderByInput, skip: Int, where: TaskGroupWhereInput): [TaskGroup!]!
-  tasks(after: ID, before: ID, first: Int, last: Int, skip: Int): [Task!]!
+  punchCards(after: PunchCardWhereUniqueInput, before: PunchCardWhereUniqueInput, first: Int, last: Int, orderBy: PunchCardOrderByInput, skip: Int, where: PunchCardWhereInput): [PunchCard!]!
+  task(where: TaskWhereUniqueInput!): Task
+  taskList(where: TaskListWhereUniqueInput!): TaskList
+  taskLists(after: TaskListWhereUniqueInput, before: TaskListWhereUniqueInput, first: Int, last: Int, orderBy: TaskListOrderByInput, skip: Int, where: TaskListWhereInput): [TaskList!]!
+  tasks(after: TaskWhereUniqueInput, before: TaskWhereUniqueInput, first: Int, last: Int, orderBy: TaskOrderByInput, skip: Int): [Task!]!
   test(where: UserWhereInput): [User!]!
   timeRequest(where: TimeRequestWhereUniqueInput!): TimeRequest
-  timeRequests(after: ID, before: ID, first: Int, last: Int, orderBy: TimeRequestOrderByInput, skip: Int, where: TimeRequestWhereInput): [TimeRequest!]!
-  timeRoles(after: ID, before: ID, first: Int, last: Int, orderBy: TimeRoleOrderByInput, skip: Int, where: TimeRoleWhereInput): [TimeRole!]!
-  users(after: ID, before: ID, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
+  timeRequests(after: TimeRequestWhereUniqueInput, before: TimeRequestWhereUniqueInput, first: Int, last: Int, orderBy: TimeRequestOrderByInput, skip: Int, where: TimeRequestWhereInput): [TimeRequest!]!
+  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int, orderBy: TimeRoleOrderByInput, skip: Int, where: TimeRoleWhereInput): [TimeRole!]!
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
 }
 
 input StringFilter {
@@ -288,62 +307,69 @@ input StringFilter {
 }
 
 type Task {
-  childrenTasks(after: ID, before: ID, first: Int, last: Int, skip: Int): [Task!]!
+  childrenTasks(after: TaskWhereUniqueInput, before: TaskWhereUniqueInput, first: Int, last: Int, skip: Int): [Task!]!
   createdAt: DateTime!
-  id: ID!
+  id: String!
   name: String!
+  orderRank: Float!
+  parentTask: Task
+  taskList: TaskList
   updatedAt: DateTime!
 }
 
 input TaskCreateInput {
-  childrenTasks: TaskCreateManyWithoutChildrenTasksInput
+  childrenTasks: TaskCreateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
-  parentTask: TaskCreateOneWithoutParentTaskInput
-  taskGroup: TaskGroupCreateOneWithoutTaskGroupInput
+  orderRank: Float!
+  parentTask: TaskCreateOneWithoutChildrenTasksInput
+  taskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
-input TaskCreateManyWithoutChildrenTasksInput {
+input TaskCreateManyWithoutParentTaskInput {
   connect: [TaskWhereUniqueInput!]
   create: [TaskCreateWithoutParentTaskInput!]
 }
 
-input TaskCreateManyWithoutTasksInput {
+input TaskCreateManyWithoutTaskListInput {
   connect: [TaskWhereUniqueInput!]
-  create: [TaskCreateWithoutTaskGroupInput!]
+  create: [TaskCreateWithoutTaskListInput!]
 }
 
-input TaskCreateOneWithoutParentTaskInput {
+input TaskCreateOneWithoutChildrenTasksInput {
   connect: TaskWhereUniqueInput
   create: TaskCreateWithoutChildrenTasksInput
 }
 
 input TaskCreateWithoutChildrenTasksInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
-  parentTask: TaskCreateOneWithoutParentTaskInput
-  taskGroup: TaskGroupCreateOneWithoutTaskGroupInput
+  orderRank: Float!
+  parentTask: TaskCreateOneWithoutChildrenTasksInput
+  taskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
 input TaskCreateWithoutParentTaskInput {
-  childrenTasks: TaskCreateManyWithoutChildrenTasksInput
+  childrenTasks: TaskCreateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
-  taskGroup: TaskGroupCreateOneWithoutTaskGroupInput
+  orderRank: Float!
+  taskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
-input TaskCreateWithoutTaskGroupInput {
-  childrenTasks: TaskCreateManyWithoutChildrenTasksInput
+input TaskCreateWithoutTaskListInput {
+  childrenTasks: TaskCreateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
-  parentTask: TaskCreateOneWithoutParentTaskInput
+  orderRank: Float!
+  parentTask: TaskCreateOneWithoutChildrenTasksInput
   updatedAt: DateTime
 }
 
@@ -353,89 +379,92 @@ input TaskFilter {
   some: TaskWhereInput
 }
 
-type TaskGroup {
+type TaskList {
   createdAt: DateTime!
-  id: ID!
+  id: String!
   name: String!
-  tasks(after: ID, before: ID, first: Int, last: Int, skip: Int): [Task!]!
+  tasks(after: TaskWhereUniqueInput, before: TaskWhereUniqueInput, first: Int, last: Int, skip: Int): [Task!]!
   updatedAt: DateTime!
 }
 
-input TaskGroupCreateInput {
+input TaskListCreateInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
-  tasks: TaskCreateManyWithoutTasksInput
+  tasks: TaskCreateManyWithoutTaskListInput
   updatedAt: DateTime
 }
 
-input TaskGroupCreateOneWithoutTaskGroupInput {
-  connect: TaskGroupWhereUniqueInput
-  create: TaskGroupCreateWithoutTasksInput
+input TaskListCreateOneWithoutTasksInput {
+  connect: TaskListWhereUniqueInput
+  create: TaskListCreateWithoutTasksInput
 }
 
-input TaskGroupCreateWithoutTasksInput {
+input TaskListCreateWithoutTasksInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String!
   updatedAt: DateTime
 }
 
-input TaskGroupOrderByInput {
+input TaskListOrderByInput {
   createdAt: OrderByArg
   id: OrderByArg
   name: OrderByArg
   updatedAt: OrderByArg
 }
 
-input TaskGroupUpdateInput {
+input TaskListUpdateInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
-  tasks: TaskUpdateManyWithoutTaskGroupInput
+  tasks: TaskUpdateManyWithoutTaskListInput
   updatedAt: DateTime
 }
 
-input TaskGroupUpdateOneWithoutTasksInput {
-  connect: TaskGroupWhereUniqueInput
-  create: TaskGroupCreateWithoutTasksInput
+input TaskListUpdateOneWithoutTasksInput {
+  connect: TaskListWhereUniqueInput
+  create: TaskListCreateWithoutTasksInput
   delete: Boolean
   disconnect: Boolean
-  update: TaskGroupUpdateWithoutTasksDataInput
-  upsert: TaskGroupUpsertWithoutTasksInput
+  update: TaskListUpdateWithoutTasksDataInput
+  upsert: TaskListUpsertWithoutTasksInput
 }
 
-input TaskGroupUpdateWithoutTasksDataInput {
+input TaskListUpdateWithoutTasksDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
   updatedAt: DateTime
 }
 
-input TaskGroupUpsertWithoutTasksInput {
-  create: TaskGroupCreateWithoutTasksInput!
-  update: TaskGroupUpdateWithoutTasksDataInput!
+input TaskListUpsertWithoutTasksInput {
+  create: TaskListCreateWithoutTasksInput!
+  update: TaskListUpdateWithoutTasksDataInput!
 }
 
-input TaskGroupWhereInput {
-  AND: [TaskGroupWhereInput!]
+input TaskListWhereInput {
+  AND: [TaskListWhereInput!]
   createdAt: DateTimeFilter
   id: StringFilter
   name: StringFilter
-  NOT: [TaskGroupWhereInput!]
-  OR: [TaskGroupWhereInput!]
+  NOT: [TaskListWhereInput!]
+  OR: [TaskListWhereInput!]
   tasks: TaskFilter
   updatedAt: DateTimeFilter
 }
 
-input TaskGroupWhereUniqueInput {
-  id: ID
+input TaskListWhereUniqueInput {
+  id: String
 }
 
 input TaskOrderByInput {
   createdAt: OrderByArg
   id: OrderByArg
   name: OrderByArg
+  orderRank: OrderByArg
+  parentTask: OrderByArg
+  taskList: OrderByArg
   updatedAt: OrderByArg
 }
 
@@ -447,23 +476,26 @@ input TaskScalarWhereInput {
   name: StringFilter
   NOT: [TaskScalarWhereInput!]
   OR: [TaskScalarWhereInput!]
+  orderRank: FloatFilter
   updatedAt: DateTimeFilter
 }
 
 input TaskUpdateInput {
   childrenTasks: TaskUpdateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
+  orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
-  taskGroup: TaskGroupUpdateOneWithoutTasksInput
+  taskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
 input TaskUpdateManyDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
+  orderRank: Float
   updatedAt: DateTime
 }
 
@@ -479,16 +511,16 @@ input TaskUpdateManyWithoutParentTaskInput {
   upsert: [TaskUpsertWithWhereUniqueWithoutParentTaskInput!]
 }
 
-input TaskUpdateManyWithoutTaskGroupInput {
+input TaskUpdateManyWithoutTaskListInput {
   connect: [TaskWhereUniqueInput!]
-  create: [TaskCreateWithoutTaskGroupInput!]
+  create: [TaskCreateWithoutTaskListInput!]
   delete: [TaskWhereUniqueInput!]
   deleteMany: [TaskScalarWhereInput!]
   disconnect: [TaskWhereUniqueInput!]
   set: [TaskWhereUniqueInput!]
-  update: [TaskUpdateWithWhereUniqueWithoutTaskGroupInput!]
+  update: [TaskUpdateWithWhereUniqueWithoutTaskListInput!]
   updateMany: [TaskUpdateManyWithWhereNestedInput!]
-  upsert: [TaskUpsertWithWhereUniqueWithoutTaskGroupInput!]
+  upsert: [TaskUpsertWithWhereUniqueWithoutTaskListInput!]
 }
 
 input TaskUpdateManyWithWhereNestedInput {
@@ -507,27 +539,30 @@ input TaskUpdateOneWithoutChildrenTasksInput {
 
 input TaskUpdateWithoutChildrenTasksDataInput {
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
+  orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
-  taskGroup: TaskGroupUpdateOneWithoutTasksInput
+  taskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
 input TaskUpdateWithoutParentTaskDataInput {
   childrenTasks: TaskUpdateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
-  taskGroup: TaskGroupUpdateOneWithoutTasksInput
+  orderRank: Float
+  taskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
-input TaskUpdateWithoutTaskGroupDataInput {
+input TaskUpdateWithoutTaskListDataInput {
   childrenTasks: TaskUpdateManyWithoutParentTaskInput
   createdAt: DateTime
-  id: ID
+  id: String
   name: String
+  orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
   updatedAt: DateTime
 }
@@ -537,8 +572,8 @@ input TaskUpdateWithWhereUniqueWithoutParentTaskInput {
   where: TaskWhereUniqueInput!
 }
 
-input TaskUpdateWithWhereUniqueWithoutTaskGroupInput {
-  data: TaskUpdateWithoutTaskGroupDataInput!
+input TaskUpdateWithWhereUniqueWithoutTaskListInput {
+  data: TaskUpdateWithoutTaskListDataInput!
   where: TaskWhereUniqueInput!
 }
 
@@ -553,9 +588,9 @@ input TaskUpsertWithWhereUniqueWithoutParentTaskInput {
   where: TaskWhereUniqueInput!
 }
 
-input TaskUpsertWithWhereUniqueWithoutTaskGroupInput {
-  create: TaskCreateWithoutTaskGroupInput!
-  update: TaskUpdateWithoutTaskGroupDataInput!
+input TaskUpsertWithWhereUniqueWithoutTaskListInput {
+  create: TaskCreateWithoutTaskListInput!
+  update: TaskUpdateWithoutTaskListDataInput!
   where: TaskWhereUniqueInput!
 }
 
@@ -567,20 +602,21 @@ input TaskWhereInput {
   name: StringFilter
   NOT: [TaskWhereInput!]
   OR: [TaskWhereInput!]
+  orderRank: FloatFilter
   parentTask: TaskWhereInput
-  taskGroup: TaskGroupWhereInput
+  taskList: TaskListWhereInput
   updatedAt: DateTimeFilter
 }
 
 input TaskWhereUniqueInput {
-  id: ID
+  id: String
 }
 
 type TimeRequest {
   approved: Boolean
   createdAt: DateTime!
   endTime: DateTime!
-  id: ID!
+  id: String!
   isAllDay: Boolean!
   reason: String!
   startTime: DateTime!
@@ -592,15 +628,15 @@ input TimeRequestCreateInput {
   approved: Boolean
   createdAt: DateTime
   endTime: DateTime!
-  id: ID
+  id: String
   isAllDay: Boolean
   reason: String!
   startTime: DateTime!
   updatedAt: DateTime
-  user: UserCreateOneWithoutUserInput!
+  user: UserCreateOneWithoutEventsInput!
 }
 
-input TimeRequestCreateManyWithoutEventsInput {
+input TimeRequestCreateManyWithoutUserInput {
   connect: [TimeRequestWhereUniqueInput!]
   create: [TimeRequestCreateWithoutUserInput!]
 }
@@ -609,7 +645,7 @@ input TimeRequestCreateWithoutUserInput {
   approved: Boolean
   createdAt: DateTime
   endTime: DateTime!
-  id: ID
+  id: String
   isAllDay: Boolean
   reason: String!
   startTime: DateTime!
@@ -631,6 +667,7 @@ input TimeRequestOrderByInput {
   reason: OrderByArg
   startTime: OrderByArg
   updatedAt: OrderByArg
+  user: OrderByArg
 }
 
 input TimeRequestScalarWhereInput {
@@ -651,7 +688,7 @@ input TimeRequestUpdateInput {
   approved: Boolean
   createdAt: DateTime
   endTime: DateTime
-  id: ID
+  id: String
   isAllDay: Boolean
   reason: String
   startTime: DateTime
@@ -663,7 +700,7 @@ input TimeRequestUpdateManyDataInput {
   approved: Boolean
   createdAt: DateTime
   endTime: DateTime
-  id: ID
+  id: String
   isAllDay: Boolean
   reason: String
   startTime: DateTime
@@ -691,7 +728,7 @@ input TimeRequestUpdateWithoutUserDataInput {
   approved: Boolean
   createdAt: DateTime
   endTime: DateTime
-  id: ID
+  id: String
   isAllDay: Boolean
   reason: String
   startTime: DateTime
@@ -725,38 +762,38 @@ input TimeRequestWhereInput {
 }
 
 input TimeRequestWhereUniqueInput {
-  id: ID
+  id: String
 }
 
 type TimeRole {
   createdAt: DateTime!
   description: String!
-  id: ID!
+  id: String!
   name: String!
   payRate: Int!
   shortName: String!
   updatedAt: DateTime!
-  users(after: ID, before: ID, first: Int, last: Int, skip: Int): [User!]!
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int): [User!]!
 }
 
 input TimeRoleCreateInput {
   createdAt: DateTime
   description: String!
-  id: ID
+  id: String
   name: String!
   payRate: Int!
-  punchCards: PunchCardCreateManyWithoutPunchCardsInput
+  punchCards: PunchCardCreateManyWithoutTimeRoleInput
   shortName: String!
   updatedAt: DateTime
-  users: UserCreateManyWithoutUsersInput
+  users: UserCreateManyWithoutTimeRolesInput
 }
 
-input TimeRoleCreateManyWithoutTimeRolesInput {
+input TimeRoleCreateManyWithoutUsersInput {
   connect: [TimeRoleWhereUniqueInput!]
   create: [TimeRoleCreateWithoutUsersInput!]
 }
 
-input TimeRoleCreateOneWithoutTimeRoleInput {
+input TimeRoleCreateOneWithoutPunchCardsInput {
   connect: TimeRoleWhereUniqueInput
   create: TimeRoleCreateWithoutPunchCardsInput
 }
@@ -764,21 +801,21 @@ input TimeRoleCreateOneWithoutTimeRoleInput {
 input TimeRoleCreateWithoutPunchCardsInput {
   createdAt: DateTime
   description: String!
-  id: ID
+  id: String
   name: String!
   payRate: Int!
   shortName: String!
   updatedAt: DateTime
-  users: UserCreateManyWithoutUsersInput
+  users: UserCreateManyWithoutTimeRolesInput
 }
 
 input TimeRoleCreateWithoutUsersInput {
   createdAt: DateTime
   description: String!
-  id: ID
+  id: String
   name: String!
   payRate: Int!
-  punchCards: PunchCardCreateManyWithoutPunchCardsInput
+  punchCards: PunchCardCreateManyWithoutTimeRoleInput
   shortName: String!
   updatedAt: DateTime
 }
@@ -817,7 +854,7 @@ input TimeRoleScalarWhereInput {
 input TimeRoleUpdateInput {
   createdAt: DateTime
   description: String
-  id: ID
+  id: String
   name: String
   payRate: Int
   punchCards: PunchCardUpdateManyWithoutTimeRoleInput
@@ -829,7 +866,7 @@ input TimeRoleUpdateInput {
 input TimeRoleUpdateManyDataInput {
   createdAt: DateTime
   description: String
-  id: ID
+  id: String
   name: String
   payRate: Int
   shortName: String
@@ -863,7 +900,7 @@ input TimeRoleUpdateOneRequiredWithoutPunchCardsInput {
 input TimeRoleUpdateWithoutPunchCardsDataInput {
   createdAt: DateTime
   description: String
-  id: ID
+  id: String
   name: String
   payRate: Int
   shortName: String
@@ -874,7 +911,7 @@ input TimeRoleUpdateWithoutPunchCardsDataInput {
 input TimeRoleUpdateWithoutUsersDataInput {
   createdAt: DateTime
   description: String
-  id: ID
+  id: String
   name: String
   payRate: Int
   punchCards: PunchCardUpdateManyWithoutTimeRoleInput
@@ -914,7 +951,7 @@ input TimeRoleWhereInput {
 }
 
 input TimeRoleWhereUniqueInput {
-  id: ID
+  id: String
 }
 
 type User {
@@ -923,27 +960,32 @@ type User {
   createdAt: DateTime!
   email: String!
   firstName: String!
-  id: ID!
+  id: String!
   lastName: String!
-  permissions: [Permissions!]!
+  permissions: [Permission!]!
   recentTimeRoleId: String!
-  timeRoles(after: ID, before: ID, first: Int, last: Int, skip: Int): [TimeRole!]!
+  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int, skip: Int): [TimeRole!]!
   title: String
   updatedAt: DateTime!
 }
 
-input UserCreateManyWithoutUsersInput {
+input UserCreateManyWithoutTimeRolesInput {
   connect: [UserWhereUniqueInput!]
   create: [UserCreateWithoutTimeRolesInput!]
 }
 
-input UserCreateOneWithoutUserInput {
+input UserCreateOneWithoutEventsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutEventsInput
+}
+
+input UserCreateOneWithoutPunchCardsInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutPunchCardsInput
 }
 
 input UserCreatepermissionsInput {
-  set: [Permissions!]
+  set: [Permission!]
 }
 
 input UserCreateWithoutEventsInput {
@@ -951,12 +993,12 @@ input UserCreateWithoutEventsInput {
   createdAt: DateTime
   email: String!
   firstName: String!
-  id: ID
+  id: String
   lastName: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  punchCards: PunchCardCreateManyWithoutPunchCardsInput
-  timeRoles: TimeRoleCreateManyWithoutTimeRolesInput
+  punchCards: PunchCardCreateManyWithoutUserInput
+  timeRoles: TimeRoleCreateManyWithoutUsersInput
   title: String
   updatedAt: DateTime
 }
@@ -965,13 +1007,13 @@ input UserCreateWithoutPunchCardsInput {
   code: Int!
   createdAt: DateTime
   email: String!
-  events: TimeRequestCreateManyWithoutEventsInput
+  events: TimeRequestCreateManyWithoutUserInput
   firstName: String!
-  id: ID
+  id: String
   lastName: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  timeRoles: TimeRoleCreateManyWithoutTimeRolesInput
+  timeRoles: TimeRoleCreateManyWithoutUsersInput
   title: String
   updatedAt: DateTime
 }
@@ -980,13 +1022,13 @@ input UserCreateWithoutTimeRolesInput {
   code: Int!
   createdAt: DateTime
   email: String!
-  events: TimeRequestCreateManyWithoutEventsInput
+  events: TimeRequestCreateManyWithoutUserInput
   firstName: String!
-  id: ID
+  id: String
   lastName: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  punchCards: PunchCardCreateManyWithoutPunchCardsInput
+  punchCards: PunchCardCreateManyWithoutUserInput
   title: String
   updatedAt: DateTime
 }
@@ -1033,7 +1075,7 @@ input UserUpdateInput {
   email: String
   events: TimeRequestUpdateManyWithoutUserInput
   firstName: String
-  id: ID
+  id: String
   lastName: String
   password: String
   permissions: UserUpdatepermissionsInput
@@ -1048,7 +1090,7 @@ input UserUpdateManyDataInput {
   createdAt: DateTime
   email: String
   firstName: String
-  id: ID
+  id: String
   lastName: String
   password: String
   permissions: UserUpdatepermissionsInput
@@ -1088,7 +1130,7 @@ input UserUpdateOneRequiredWithoutPunchCardsInput {
 }
 
 input UserUpdatepermissionsInput {
-  set: [Permissions!]
+  set: [Permission!]
 }
 
 input UserUpdateWithoutEventsDataInput {
@@ -1096,7 +1138,7 @@ input UserUpdateWithoutEventsDataInput {
   createdAt: DateTime
   email: String
   firstName: String
-  id: ID
+  id: String
   lastName: String
   password: String
   permissions: UserUpdatepermissionsInput
@@ -1112,7 +1154,7 @@ input UserUpdateWithoutPunchCardsDataInput {
   email: String
   events: TimeRequestUpdateManyWithoutUserInput
   firstName: String
-  id: ID
+  id: String
   lastName: String
   password: String
   permissions: UserUpdatepermissionsInput
@@ -1127,7 +1169,7 @@ input UserUpdateWithoutTimeRolesDataInput {
   email: String
   events: TimeRequestUpdateManyWithoutUserInput
   firstName: String
-  id: ID
+  id: String
   lastName: String
   password: String
   permissions: UserUpdatepermissionsInput
@@ -1178,5 +1220,5 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   code: Int
   email: String
-  id: ID
+  id: String
 }

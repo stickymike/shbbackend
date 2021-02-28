@@ -4,7 +4,7 @@
     "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
     "seed": "ts-node prisma/seed.ts",
     "generate": "prisma2 generate && ts-node script.ts",
-    "update": "prisma2 lift save && prisma2 lift up --verbose",
+    "update": "prisma2 migrate save --experimental && prisma2 migrate up --verbose --experimental",
     "docstart": "docker-compose up",
     "docbuild": "docker-compose build",
     "docstop": "docker-compose down",
@@ -17,7 +17,7 @@
     "postinstall": "prisma2 generate"
   },
   "dependencies": {
-    "@prisma/photon": "^2.0.0-preview018.2",
+    "@prisma/client": "^2.0.0-preview024",
     "apollo-server-express": "2.9.3",
     "bcrypt": "3.0.6",
     "cookie-parser": "^1.4.3",
@@ -27,7 +27,7 @@
     "jsonwebtoken": "8.5.1",
     "moment": "^2.24.0",
     "nexus": "0.12.0-rc.5",
-    "nexus-prisma": "0.6.1",
+    "nexus-prisma": "0.11.1",
     "rrule": "^2.6.3"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "@types/dotenv": "6.1.1",
     "@types/jsonwebtoken": "8.3.3",
     "@types/node": "10.14.17",
-    "prisma2": "^2.0.0-preview018.2",
+    "prisma2": "^2.0.0-preview024",
     "replace-in-file": "^4.1.3",
     "ts-node": "8.5.4",
     "ts-node-dev": "1.0.0-pre.44",

@@ -15,9 +15,9 @@ export const Mutation = objectType({
         password: stringArg({ nullable: false }),
         id: idArg({ nullable: false })
       },
-      resolve: async (_p, { id, password }, { photon }) => {
+      resolve: async (_p, { id, password }, { prisma }) => {
         const hashedPassword = await hash(password, 10);
-        return await photon.users.update({
+        return await prisma.user.update({
           data: { password: hashedPassword },
           where: { id }
         });
@@ -39,7 +39,7 @@ export const Mutation = objectType({
         ctx
       ) => {
         email = email.toLowerCase();
-        await ctx.photon.users
+        await ctx.prisma.user
           .findOne({
             where: { code }
           })
@@ -47,7 +47,7 @@ export const Mutation = objectType({
             throw new ApolloError("Code Taken", "Code");
           })
           .catch((_: any) => {});
-        await ctx.photon.users
+        await ctx.prisma.user
           .findOne({
             where: { email }
           })
@@ -56,7 +56,7 @@ export const Mutation = objectType({
           })
           .catch((_: any) => {});
         const hashedPassword = await hash(password, 10);
-        const user = await ctx.photon.users
+        const user = await ctx.prisma.user
           .create({
             data: {
               firstName,
@@ -87,7 +87,7 @@ export const Mutation = objectType({
         password: stringArg()
       },
       resolve: async (_p, { email, password }, ctx) => {
-        const user = await ctx.photon.users
+        const user = await ctx.prisma.user
           .findOne({ where: { email } })
           .catch((_: any) => {
             throw new ApolloError(
@@ -122,9 +122,9 @@ export const Mutation = objectType({
         id: idArg(),
         password: stringArg()
       },
-      resolve: async (_p, { id, password }, { photon }) => {
+      resolve: async (_p, { id, password }, { prisma }) => {
         password = await hash(password, 10);
-        const user = await photon.users.update({
+        const user = await prisma.user.update({
           data: {
             password
           },
@@ -137,8 +137,8 @@ export const Mutation = objectType({
     t.field("clockcodetouser", {
       type: "User",
       args: { code: intArg() },
-      resolve: async (_p, { code }, { photon }) => {
-        return await photon.users.findOne({ where: { code } }).catch(() => {
+      resolve: async (_p, { code }, { prisma }) => {
+        return await prisma.user.findOne({ where: { code } }).catch(() => {
           throw new ApolloError(`No such user for code ${code}`, "code");
         });
       }
@@ -147,8 +147,8 @@ export const Mutation = objectType({
     t.field("deleteTimeRole", {
       type: "TimeRole",
       args: { id: idArg() },
-      resolve: async (_p, { id }, { photon }) => {
-        const users: User[] = await photon.timeRoles
+      resolve: async (_p, { id }, { prisma }) => {
+        const users: User[] = await prisma.timeRole
 
           .findOne({ where: { id } })
           .users();
@@ -164,7 +164,7 @@ export const Mutation = objectType({
             "code"
           );
         }
-        return photon.timeRoles.delete({ where: { id } });
+        return prisma.timeRole.delete({ where: { id } });
       }
     });
 
@@ -219,10 +219,10 @@ export const Mutation = objectType({
     t.crud.updateOneTimeRequest({ alias: "updateTimeRequest" });
     t.crud.deleteOneTimeRequest({ alias: "deleteTimeRequest" });
 
-    //TaskGroup
-    t.crud.createOneTaskGroup();
-    t.crud.updateOneTaskGroup();
-    t.crud.deleteOneTaskGroup();
+    //Task List
+    t.crud.createOneTaskList();
+    t.crud.updateOneTaskList();
+    t.crud.deleteOneTaskList();
 
     //Task CRUD
     t.crud.createOneTask();

@@ -1,8 +1,11 @@
 import { Photon } from "@generated/photon";
 const photon = new Photon();
 
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 async function main() {
-  const user1 = await photon.users.create({
+  const user1 = await prisma.user.create({
     data: {
       code: 8846,
       email: "dave@shb.com",
@@ -12,7 +15,7 @@ async function main() {
       lastName: "Dave's Last"
     }
   });
-  const user2 = await photon.users.create({
+  const user2 = await prisma.user.create({
     data: {
       code: 7746,
       email: "nick@shb.com",
@@ -23,7 +26,7 @@ async function main() {
       permissions: { set: "ADMIN" }
     }
   });
-  const timerole1 = await photon.timeRoles.create({
+  const timerole1 = await prisma.timeRole.create({
     data: {
       name: "First Time Role",
       shortName: "First",
@@ -31,7 +34,7 @@ async function main() {
       payRate: 1000
     }
   });
-  const timerole2 = await photon.timeRoles.create({
+  const timerole2 = await prisma.timeRole.create({
     data: {
       name: "Second Time Role",
       shortName: "Second",
@@ -40,11 +43,11 @@ async function main() {
     }
   });
 
-  await photon.users.update({
+  await prisma.user.update({
     where: { email: "dave@shb.com" },
     data: { timeRoles: { connect: { id: timerole1.id } } }
   });
-  await photon.users.update({
+  await prisma.user.update({
     where: { email: "dave@shb.com" },
     data: { timeRoles: { connect: { id: timerole2.id } } }
   });
@@ -91,5 +94,5 @@ async function main() {
 main()
   .catch(e => console.error(e))
   .finally(async () => {
-    await photon.disconnect();
+    await prisma.disconnect();
   });

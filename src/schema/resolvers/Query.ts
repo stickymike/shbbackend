@@ -18,9 +18,9 @@ export const Query = objectType({
     t.field("me", {
       type: "User",
       nullable: true,
-      resolve: async (parent, args, { photon, request: { userId: id } }) => {
+      resolve: async (parent, args, { prisma, request: { userId: id } }) => {
         if (!id) return null;
-        const user = await photon.users
+        const user = await prisma.user
           .findOne({
             where: { id }
           })
@@ -31,8 +31,8 @@ export const Query = objectType({
     t.list.field("test", {
       type: "User",
       args: { where: "UserWhereInput" },
-      resolve: (parent, { where }, { photon }) => {
-        return photon.users.findMany().catch((): any => null);
+      resolve: (parent, { where }, { prisma }) => {
+        return prisma.user.findMany().catch((): any => null);
       }
     });
 
@@ -44,10 +44,10 @@ export const Query = objectType({
 
     t.crud.timeRequest();
     t.crud.timeRequests({ filtering: true, ordering: true });
-    t.crud.taskGroups({ filtering: true, ordering: true });
-    t.crud.taskGroup();
-    t.crud.tasks({ filtering: true, ordering: true });
-    t.crud.tasks();
+    t.crud.taskLists({ filtering: true, ordering: true });
+    t.crud.taskList();
+    t.crud.tasks({ ordering: true });
+    t.crud.task();
   }
 });
 

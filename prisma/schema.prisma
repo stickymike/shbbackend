@@ -1,13 +1,17 @@
 
-datasource mysql {
-  provider = "mysql"
-  url      = "mysql://root:prisma@localhost:3306/prisma"
-  enabled  = false
-}
+// datasource mysql {
+//   provider = "mysql"
+//   url      = "mysql://root:prisma@localhost:3306/prisma"
+//   enabled  = false
+// }
 
-generator photon {
-  provider = "photonjs"
-  // binaryTargets = ["native"]
+// generator photon {
+//   provider = "photonjs"
+//   // binaryTargets = ["native"]
+// }
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 datasource postgresql {
@@ -31,7 +35,7 @@ model User {
   timeRoles   TimeRole[]
   punchCards  PunchCard[]
   // group: [UserGroup]
-  permissions Permissions[]
+  permissions Permission[]
   events      TimeRequest[]
 }
 
@@ -58,7 +62,7 @@ model TimeRole {
   createdAt   DateTime    @default(now())
 }
 
-enum Permissions {
+enum Permission {
   ADMIN USER TIMECARDVIEWER TIMECARDEDITOR
 }
 
@@ -78,7 +82,7 @@ model TimeRequest {
   createdAt DateTime @default(now())
 }
 
-model TaskGroup {
+model TaskList {
   id        String   @default(cuid()) @id
   name      String
   tasks     Task[]
@@ -89,6 +93,7 @@ model TaskGroup {
 model Task {
   id            String   @default(cuid()) @id
   name          String
+  orderRank     Float
   parentTask    Task?    @relation(name: "newTaskCheck")
   childrenTasks Task[]   @relation(name: "newTaskCheck")
   updatedAt     DateTime @updatedAt
