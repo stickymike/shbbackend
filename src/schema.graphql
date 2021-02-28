@@ -116,6 +116,7 @@ input PunchCardCreateInput {
   timeRole: TimeRoleCreateOneWithoutPunchCardsInput!
   updatedAt: DateTime
   user: UserCreateOneWithoutPunchCardsInput!
+  userID: String!
 }
 
 input PunchCardCreateManyWithoutTimeRoleInput {
@@ -135,6 +136,7 @@ input PunchCardCreateWithoutTimeRoleInput {
   punchOut: DateTime!
   updatedAt: DateTime
   user: UserCreateOneWithoutPunchCardsInput!
+  userID: String!
 }
 
 input PunchCardCreateWithoutUserInput {
@@ -144,6 +146,7 @@ input PunchCardCreateWithoutUserInput {
   punchOut: DateTime!
   timeRole: TimeRoleCreateOneWithoutPunchCardsInput!
   updatedAt: DateTime
+  userID: String!
 }
 
 input PunchCardFilter {
@@ -158,8 +161,11 @@ input PunchCardOrderByInput {
   punchIn: OrderByArg
   punchOut: OrderByArg
   timeRole: OrderByArg
+  timeRoleId: OrderByArg
   updatedAt: OrderByArg
   user: OrderByArg
+  userId: OrderByArg
+  userID: OrderByArg
 }
 
 input PunchCardScalarWhereInput {
@@ -170,7 +176,10 @@ input PunchCardScalarWhereInput {
   OR: [PunchCardScalarWhereInput!]
   punchIn: DateTimeFilter
   punchOut: DateTimeFilter
+  timeRoleId: StringFilter
   updatedAt: DateTimeFilter
+  userId: StringFilter
+  userID: StringFilter
 }
 
 input PunchCardUpdateInput {
@@ -181,6 +190,7 @@ input PunchCardUpdateInput {
   timeRole: TimeRoleUpdateOneRequiredWithoutPunchCardsInput
   updatedAt: DateTime
   user: UserUpdateOneRequiredWithoutPunchCardsInput
+  userID: String
 }
 
 input PunchCardUpdateManyDataInput {
@@ -189,6 +199,7 @@ input PunchCardUpdateManyDataInput {
   punchIn: DateTime
   punchOut: DateTime
   updatedAt: DateTime
+  userID: String
 }
 
 input PunchCardUpdateManyWithoutTimeRoleInput {
@@ -227,6 +238,7 @@ input PunchCardUpdateWithoutTimeRoleDataInput {
   punchOut: DateTime
   updatedAt: DateTime
   user: UserUpdateOneRequiredWithoutPunchCardsInput
+  userID: String
 }
 
 input PunchCardUpdateWithoutUserDataInput {
@@ -236,6 +248,7 @@ input PunchCardUpdateWithoutUserDataInput {
   punchOut: DateTime
   timeRole: TimeRoleUpdateOneRequiredWithoutPunchCardsInput
   updatedAt: DateTime
+  userID: String
 }
 
 input PunchCardUpdateWithWhereUniqueWithoutTimeRoleInput {
@@ -269,8 +282,11 @@ input PunchCardWhereInput {
   punchIn: DateTimeFilter
   punchOut: DateTimeFilter
   timeRole: TimeRoleWhereInput
+  timeRoleId: StringFilter
   updatedAt: DateTimeFilter
   user: UserWhereInput
+  userId: StringFilter
+  userID: StringFilter
 }
 
 input PunchCardWhereUniqueInput {
@@ -313,7 +329,6 @@ type Task {
   name: String!
   orderRank: Float!
   parentTask: Task
-  taskList: TaskList
   updatedAt: DateTime!
 }
 
@@ -324,7 +339,8 @@ input TaskCreateInput {
   name: String!
   orderRank: Float!
   parentTask: TaskCreateOneWithoutChildrenTasksInput
-  taskList: TaskListCreateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -349,7 +365,8 @@ input TaskCreateWithoutChildrenTasksInput {
   name: String!
   orderRank: Float!
   parentTask: TaskCreateOneWithoutChildrenTasksInput
-  taskList: TaskListCreateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -359,7 +376,8 @@ input TaskCreateWithoutParentTaskInput {
   id: String
   name: String!
   orderRank: Float!
-  taskList: TaskListCreateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListCreateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -370,6 +388,7 @@ input TaskCreateWithoutTaskListInput {
   name: String!
   orderRank: Float!
   parentTask: TaskCreateOneWithoutChildrenTasksInput
+  taskId: String
   updatedAt: DateTime
 }
 
@@ -463,8 +482,9 @@ input TaskOrderByInput {
   id: OrderByArg
   name: OrderByArg
   orderRank: OrderByArg
-  parentTask: OrderByArg
-  taskList: OrderByArg
+  taskId: OrderByArg
+  TaskList: OrderByArg
+  taskListId: OrderByArg
   updatedAt: OrderByArg
 }
 
@@ -477,6 +497,8 @@ input TaskScalarWhereInput {
   NOT: [TaskScalarWhereInput!]
   OR: [TaskScalarWhereInput!]
   orderRank: FloatFilter
+  taskId: NullableStringFilter
+  taskListId: NullableStringFilter
   updatedAt: DateTimeFilter
 }
 
@@ -487,7 +509,8 @@ input TaskUpdateInput {
   name: String
   orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
-  taskList: TaskListUpdateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -496,6 +519,7 @@ input TaskUpdateManyDataInput {
   id: String
   name: String
   orderRank: Float
+  taskId: String
   updatedAt: DateTime
 }
 
@@ -543,7 +567,8 @@ input TaskUpdateWithoutChildrenTasksDataInput {
   name: String
   orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
-  taskList: TaskListUpdateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -553,7 +578,8 @@ input TaskUpdateWithoutParentTaskDataInput {
   id: String
   name: String
   orderRank: Float
-  taskList: TaskListUpdateOneWithoutTasksInput
+  taskId: String
+  TaskList: TaskListUpdateOneWithoutTasksInput
   updatedAt: DateTime
 }
 
@@ -564,6 +590,7 @@ input TaskUpdateWithoutTaskListDataInput {
   name: String
   orderRank: Float
   parentTask: TaskUpdateOneWithoutChildrenTasksInput
+  taskId: String
   updatedAt: DateTime
 }
 
@@ -604,7 +631,9 @@ input TaskWhereInput {
   OR: [TaskWhereInput!]
   orderRank: FloatFilter
   parentTask: TaskWhereInput
-  taskList: TaskListWhereInput
+  taskId: NullableStringFilter
+  TaskList: TaskListWhereInput
+  taskListId: NullableStringFilter
   updatedAt: DateTimeFilter
 }
 
@@ -668,6 +697,7 @@ input TimeRequestOrderByInput {
   startTime: OrderByArg
   updatedAt: OrderByArg
   user: OrderByArg
+  userId: OrderByArg
 }
 
 input TimeRequestScalarWhereInput {
@@ -682,6 +712,7 @@ input TimeRequestScalarWhereInput {
   reason: StringFilter
   startTime: DateTimeFilter
   updatedAt: DateTimeFilter
+  userId: StringFilter
 }
 
 input TimeRequestUpdateInput {
@@ -759,6 +790,7 @@ input TimeRequestWhereInput {
   startTime: DateTimeFilter
   updatedAt: DateTimeFilter
   user: UserWhereInput
+  userId: StringFilter
 }
 
 input TimeRequestWhereUniqueInput {
