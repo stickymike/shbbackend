@@ -1,4 +1,4 @@
-import { objectType, booleanArg, stringArg } from "nexus";
+import { objectType, booleanArg, stringArg } from "@nexus/schema";
 import { TimeRequest } from "./TimeRequest";
 // import { User } from "./User";
 

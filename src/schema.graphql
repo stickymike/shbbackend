@@ -279,12 +279,12 @@ input PunchCardWhereUniqueInput {
 type Query {
   me: User
   punchCard(where: PunchCardWhereUniqueInput!): PunchCard
-  punchCards(after: PunchCardWhereUniqueInput, before: PunchCardWhereUniqueInput, first: Int, last: Int, orderBy: PunchCardOrderByInput, skip: Int, where: PunchCardWhereInput): [PunchCard!]!
+  punchCards(after: PunchCardWhereUniqueInput, before: PunchCardWhereUniqueInput, first: Int, last: Int, orderBy: PunchCardOrderByInput, where: PunchCardWhereInput): [PunchCard!]!
   test(where: UserWhereInput): [User]
   timeRequest(where: TimeRequestWhereUniqueInput!): TimeRequest
-  timeRequests(after: TimeRequestWhereUniqueInput, before: TimeRequestWhereUniqueInput, first: Int, last: Int, orderBy: TimeRequestOrderByInput, skip: Int, where: TimeRequestWhereInput): [TimeRequest!]!
-  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int, orderBy: TimeRoleOrderByInput, skip: Int, where: TimeRoleWhereInput): [TimeRole!]!
-  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
+  timeRequests(after: TimeRequestWhereUniqueInput, before: TimeRequestWhereUniqueInput, first: Int, last: Int, orderBy: TimeRequestOrderByInput, where: TimeRequestWhereInput): [TimeRequest!]!
+  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int, orderBy: TimeRoleOrderByInput, where: TimeRoleWhereInput): [TimeRole!]!
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, where: UserWhereInput): [User!]!
 }
 
 input StringFilter {
@@ -465,7 +465,7 @@ type TimeRole {
   payRate: Int!
   shortName: String!
   updatedAt: DateTime!
-  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int): [User!]!
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }
 
 input TimeRoleCreateInput {
@@ -656,7 +656,7 @@ type User {
   lastName: String!
   permissions: [Permission!]!
   recentTimeRoleId: String
-  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int, skip: Int): [TimeRole!]!
+  timeRoles(after: TimeRoleWhereUniqueInput, before: TimeRoleWhereUniqueInput, first: Int, last: Int): [TimeRole!]!
   title: String
   updatedAt: DateTime!
 }

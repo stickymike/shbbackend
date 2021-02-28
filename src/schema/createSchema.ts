@@ -6,7 +6,7 @@ import * as allTypes from "./resolvers/CleanUp";
 
 export const schema = makeSchema({
   types: [allTypes],
-  plugins: [declarativeWrappingPlugin(),nexusPrismaPlugin()],
+  plugins: [declarativeWrappingPlugin(),nexusPrismaPlugin({experimentalCRUD: true})],
   // outputs: {
   //   typegen: join(__dirname, "../node_modules/@types/nexus-typegen/index.d.ts")
   // }

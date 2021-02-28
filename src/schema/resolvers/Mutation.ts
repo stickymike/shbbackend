@@ -1,4 +1,4 @@
-import { objectType, idArg, stringArg, intArg, booleanArg, arg } from "nexus";
+import { objectType, idArg, stringArg, intArg, booleanArg, arg } from "@nexus/schema";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { ApolloError } from "apollo-server-express";
