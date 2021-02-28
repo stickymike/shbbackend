@@ -44,10 +44,10 @@ export const Query = objectType({
 
     t.crud.timeRequest();
     t.crud.timeRequests({ filtering: true, ordering: true });
-    t.crud.taskLists({ filtering: true, ordering: true });
-    t.crud.taskList();
-    t.crud.tasks({ ordering: true });
-    t.crud.task();
+    // t.crud.taskLists({ filtering: true, ordering: true });
+    // t.crud.taskList();
+    // t.crud.tasks({ ordering: true });
+    // t.crud.task();
   }
 });
 

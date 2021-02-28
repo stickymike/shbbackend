@@ -219,14 +219,14 @@ export const Mutation = objectType({
     t.crud.updateOneTimeRequest({ alias: "updateTimeRequest" });
     t.crud.deleteOneTimeRequest({ alias: "deleteTimeRequest" });
 
-    //Task List
-    t.crud.createOneTaskList();
-    t.crud.updateOneTaskList();
-    t.crud.deleteOneTaskList();
+    // //Task List
+    // t.crud.createOneTaskList();
+    // t.crud.updateOneTaskList();
+    // t.crud.deleteOneTaskList();
 
-    //Task CRUD
-    t.crud.createOneTask();
-    t.crud.updateOneTask();
-    t.crud.deleteOneTask();
+    // //Task CRUD
+    // t.crud.createOneTask();
+    // t.crud.updateOneTask();
+    // t.crud.deleteOneTask();
   }
 });

@@ -17,6 +17,6 @@ export const resolvers = {
   TimeRole,
   TimeRequest,
   PunchCard,
-  Task,
-  TaskList
+  // Task,
+  // TaskList
 };

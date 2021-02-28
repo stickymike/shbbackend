@@ -4,7 +4,7 @@ generator client {
 
 datasource postgresql {
   provider = "postgresql"
-  url      = "postgresql://ccyleywleafutj:a89e2a184f59f70bb6a5ddef9f042f4cd95934195c4c31f3054e72ea216deb33@ec2-54-221-225-11.compute-1.amazonaws.com:5432/d4v0s437vieiac?sslaccept=accept_invalid_certs"
+  url = "***"
   enabled  = true
 }
 

@@ -1,4 +1,4 @@
-import { makeSchema } from "nexus";
+import { makeSchema,declarativeWrappingPlugin  } from "@nexus/schema";
 import { nexusPrismaPlugin } from "nexus-prisma";
 import { join } from "path";
 import { Context } from "./types";
@@ -6,7 +6,7 @@ import * as allTypes from "./resolvers/CleanUp";
 
 export const schema = makeSchema({
   types: [allTypes],
-  plugins: [nexusPrismaPlugin()],
+  plugins: [declarativeWrappingPlugin(),nexusPrismaPlugin()],
   // outputs: {
   //   typegen: join(__dirname, "../node_modules/@types/nexus-typegen/index.d.ts")
   // }

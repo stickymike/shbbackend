@@ -69,6 +69,17 @@
           "model": "User",
           "field": "id"
         },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "id"
+        },
         "directive": "default"
       }
     },
@@ -85,17 +96,6 @@
       },
       "argument": "",
       "value": "cuid()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "User",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateField",
@@ -258,6 +258,17 @@
           "model": "PunchCard",
           "field": "id"
         },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "id"
+        },
         "directive": "default"
       }
     },
@@ -276,21 +287,56 @@
       "value": "cuid()"
     },
     {
+      "tag": "CreateField",
+      "model": "PunchCard",
+      "field": "user",
+      "type": "User",
+      "arity": "Required"
+    },
+    {
       "tag": "CreateDirective",
       "location": {
         "path": {
           "tag": "Field",
           "model": "PunchCard",
-          "field": "id"
+          "field": "user"
         },
-        "directive": "id"
+        "directive": "relation"
       }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
     },
     {
       "tag": "CreateField",
       "model": "PunchCard",
-      "field": "user",
-      "type": "User",
+      "field": "userID",
+      "type": "String",
       "arity": "Required"
     },
     {
@@ -313,6 +359,45 @@
       "field": "timeRole",
       "type": "TimeRole",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "timeRole"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "timeRole"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[timeRoleId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "PunchCard",
+          "field": "timeRole"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
     },
     {
       "tag": "CreateField",
@@ -365,6 +450,20 @@
       "value": "now()"
     },
     {
+      "tag": "CreateField",
+      "model": "PunchCard",
+      "field": "userId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "PunchCard",
+      "field": "timeRoleId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
       "tag": "CreateModel",
       "model": "TimeRole"
     },
@@ -374,6 +473,17 @@
       "field": "id",
       "type": "String",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeRole",
+          "field": "id"
+        },
+        "directive": "id"
+      }
     },
     {
       "tag": "CreateDirective",
@@ -399,17 +509,6 @@
       },
       "argument": "",
       "value": "cuid()"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "TimeRole",
-          "field": "id"
-        },
-        "directive": "id"
-      }
     },
     {
       "tag": "CreateField",
@@ -522,6 +621,17 @@
           "model": "TimeRequest",
           "field": "id"
         },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeRequest",
+          "field": "id"
+        },
         "directive": "default"
       }
     },
@@ -540,22 +650,50 @@
       "value": "cuid()"
     },
     {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "TimeRequest",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
       "tag": "CreateField",
       "model": "TimeRequest",
       "field": "user",
       "type": "User",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TimeRequest",
+          "field": "user"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeRequest",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[userId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "TimeRequest",
+          "field": "user"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
     },
     {
       "tag": "CreateField",
@@ -668,12 +806,19 @@
       "value": "now()"
     },
     {
+      "tag": "CreateField",
+      "model": "TimeRequest",
+      "field": "userId",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
       "tag": "CreateModel",
-      "model": "TaskGroup"
+      "model": "TaskList"
     },
     {
       "tag": "CreateField",
-      "model": "TaskGroup",
+      "model": "TaskList",
       "field": "id",
       "type": "String",
       "arity": "Required"
@@ -683,7 +828,18 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "TaskGroup",
+          "model": "TaskList",
+          "field": "id"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "TaskList",
           "field": "id"
         },
         "directive": "default"
@@ -695,7 +851,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "TaskGroup",
+          "model": "TaskList",
           "field": "id"
         },
         "directive": "default"
@@ -704,33 +860,22 @@
       "value": "cuid()"
     },
     {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "TaskGroup",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
       "tag": "CreateField",
-      "model": "TaskGroup",
+      "model": "TaskList",
       "field": "name",
       "type": "String",
       "arity": "Required"
     },
     {
       "tag": "CreateField",
-      "model": "TaskGroup",
+      "model": "TaskList",
       "field": "tasks",
       "type": "Task",
       "arity": "List"
     },
     {
       "tag": "CreateField",
-      "model": "TaskGroup",
+      "model": "TaskList",
       "field": "updatedAt",
       "type": "DateTime",
       "arity": "Required"
@@ -740,7 +885,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "TaskGroup",
+          "model": "TaskList",
           "field": "updatedAt"
         },
         "directive": "updatedAt"
@@ -748,7 +893,7 @@
     },
     {
       "tag": "CreateField",
-      "model": "TaskGroup",
+      "model": "TaskList",
       "field": "createdAt",
       "type": "DateTime",
       "arity": "Required"
@@ -758,7 +903,7 @@
       "location": {
         "path": {
           "tag": "Field",
-          "model": "TaskGroup",
+          "model": "TaskList",
           "field": "createdAt"
         },
         "directive": "default"
@@ -770,7 +915,7 @@
         "tag": "Directive",
         "path": {
           "tag": "Field",
-          "model": "TaskGroup",
+          "model": "TaskList",
           "field": "createdAt"
         },
         "directive": "default"
@@ -797,6 +942,17 @@
           "model": "Task",
           "field": "id"
         },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Task",
+          "field": "id"
+        },
         "directive": "default"
       }
     },
@@ -815,21 +971,17 @@
       "value": "cuid()"
     },
     {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Task",
-          "field": "id"
-        },
-        "directive": "id"
-      }
-    },
-    {
       "tag": "CreateField",
       "model": "Task",
       "field": "name",
       "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Task",
+      "field": "orderRank",
+      "type": "Float",
       "arity": "Required"
     },
     {
@@ -945,6 +1097,66 @@
       },
       "argument": "",
       "value": "now()"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Task",
+      "field": "TaskList",
+      "type": "TaskList",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Task",
+          "field": "TaskList"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Task",
+          "field": "TaskList"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[taskListId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Task",
+          "field": "TaskList"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Task",
+      "field": "taskListId",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Task",
+      "field": "taskId",
+      "type": "String",
+      "arity": "Optional"
     }
   ]
 }

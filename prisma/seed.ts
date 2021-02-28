@@ -1,5 +1,5 @@
-import { Photon } from "@generated/photon";
-const photon = new Photon();
+// import { Photon } from "@generated/photon";
+// const photon = new Photon();
 
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();

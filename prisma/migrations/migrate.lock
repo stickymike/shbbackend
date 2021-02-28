@@ -1,9 +1,7 @@
 # IF THERE'S A GIT CONFLICT IN THIS FILE, DON'T SOLVE IT MANUALLY!
-# INSTEAD EXECUTE `prisma2 migrate fix`
+# INSTEAD EXECUTE `prisma migrate fix`
 # Prisma Migrate lockfile v1
 # Read more about conflict resolution here: TODO
 
-20200318143753-first
-20200318144226-firstone
-20200328121158-added-ranks
-20200404114114-created-task-list
+20210228131203-first
+20210228132603-next

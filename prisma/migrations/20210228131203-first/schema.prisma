@@ -1,15 +1,3 @@
-
-// datasource mysql {
-//   provider = "mysql"
-//   url = "***"
-//   enabled  = false
-// }
-
-// generator photon {
-//   provider = "photonjs"
-//   // binaryTargets = ["native"]
-// }
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,11 +6,10 @@ datasource postgresql {
   provider = "postgresql"
   url = "***"
   enabled  = true
-
 }
 
 model User {
-  id          String        @default(cuid()) @id
+  id          String        @id @default(cuid())
   code        Int           @unique
   email       String        @unique
   password    String
@@ -31,48 +18,52 @@ model User {
   title       String?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  // timeCards   TimeCard[]
   timeRoles   TimeRole[]
   punchCards  PunchCard[]
-  // group: [UserGroup]
   permissions Permission[]
   events      TimeRequest[]
 }
 
 model PunchCard {
-  id        String   @default(cuid()) @id
-  user      User
-  punchIn   DateTime
-  punchOut  DateTime
-  timeRole  TimeRole
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userID     String
+  punchIn    DateTime
+  punchOut   DateTime
+  timeRole   TimeRole @relation(fields: [timeRoleId], references: [id])
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  userId     String
+  timeRoleId String
 }
 
 model TimeRole {
-  id          String      @default(cuid()) @id
+  id          String      @id @default(cuid())
   name        String
   shortName   String
   description String
   payRate     Int
   users       User[]
-  // timeCards   TimeCard[]
   punchCards  PunchCard[]
   updatedAt   DateTime    @updatedAt
   createdAt   DateTime    @default(now())
 }
 
 enum Permission {
-  ADMIN USER TIMECARDVIEWER TIMECARDEDITOR
+  ADMIN
+  USER
+  TIMECARDVIEWER
+  TIMECARDEDITOR
 }
 
 enum Punchtype {
-  CLOCKIN CLOCKOUT
+  CLOCKIN
+  CLOCKOUT
 }
 
 model TimeRequest {
-  id        String   @default(cuid()) @id
-  user      User
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
   reason    String
   approved  Boolean?
   startTime DateTime
@@ -80,10 +71,11 @@ model TimeRequest {
   isAllDay  Boolean  @default(false)
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+  userId    String
 }
 
 model TaskList {
-  id        String   @default(cuid()) @id
+  id        String   @id @default(cuid())
   name      String
   tasks     Task[]
   updatedAt DateTime @updatedAt
@@ -91,11 +83,14 @@ model TaskList {
 }
 
 model Task {
-  id            String   @default(cuid()) @id
+  id            String    @id @default(cuid())
   name          String
   orderRank     Float
-  parentTask    Task?    @relation(name: "newTaskCheck")
-  childrenTasks Task[]   @relation(name: "newTaskCheck")
-  updatedAt     DateTime @updatedAt
-  createdAt     DateTime @default(now())
+  parentTask    Task?     @relation(name: "newTaskCheck")
+  childrenTasks Task[]    @relation(name: "newTaskCheck")
+  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime  @default(now())
+  TaskList      TaskList? @relation(fields: [taskListId], references: [id])
+  taskListId    String?
+  taskId        String?
 }
