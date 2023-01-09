@@ -29,7 +29,7 @@
     "jsonwebtoken": "8.5.1",
     "moment": "^2.29.1",
     "nexus-prisma": "0.15.0",
-    "rrule": "^2.6.8"
+    "rrule": "^2.7.1"
   },
   "devDependencies": {
     "@types/bcrypt": "3.0.0",
